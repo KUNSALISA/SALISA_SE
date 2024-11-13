@@ -36,11 +36,12 @@
 
 import React from 'react';
 import Login from '../src/page/login/Login';
+import Employee from './page/employee/employee';
 
 const App: React.FC = () => {
   return (
     <div>
-      <Login />
+      <Employee />
     </div>
   );
 };
