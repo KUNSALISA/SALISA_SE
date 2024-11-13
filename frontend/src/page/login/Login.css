@@ -117,63 +117,26 @@
   align-items: flex-start; 
 }
 
-.logo {
-  width: 110px;
+.title-image {
+  position: absolute;
+  left: 50.5%;
+  top: 28%;
+  transform: translateY(-50%);
+}
+
+.title-image img {
+  width: 390px;
   height: auto;
-  margin-left: 95px;
-}
-
-.welcome-text {
-  font-family: 'Arial';
-  text-align: left;
-  display: flex;
-  margin-top: 0;
-}
-
-.text-wrapper {
-  display: flex;
-  flex-direction: row;
-  align-items: flex-end; 
-}
-
-.highlight-text-1 {
-  font-size: 72px;
-  font-weight: bold;
-  color: #000;
-  margin-bottom: -10px; 
-}
-.sub-text {
-  display: flex;
-  flex-direction: column;
-  margin-left: 8px; 
-}
-
-.highlight-text-2 {
-  font-size: 28px; 
-  font-weight: bold;
-  color: #000;
-}
-
-.highlight-text-3 {
-  font-size: 36px; 
-  font-weight: bold;
-  color: #000;
-  margin-top: -10px; 
-}
-
-.spaced-letter {
-  margin-right: px; 
-}
-
-.welcome-text span {
-  margin-right: 12px; 
 }
 
 .login-form .ant-form-item {
-  width: 300px;
-  margin-bottom: 10px; 
+  width: 350px;
+  margin-bottom: 12px; 
 }
 
+.span {
+  margin-top: 80px;
+}
 .login-button {
   width: 100%;
   background-color: #ff7236;
@@ -185,3 +148,12 @@
   background-color: #ff7236;
   border-color: #ff7236;
 }
+
+/* @font-face {
+  font-family: 'Bree Serif';
+  src: url('../../assets/BreeSerif-Regular.otf') format('truetype'); 
+} */
+
+/* body, .login-container {
+  font-family: 'Bree Serif', serif;
+} */

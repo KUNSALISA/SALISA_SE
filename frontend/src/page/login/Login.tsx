@@ -2,7 +2,7 @@ import React from 'react';
 import { Button, Input, Form, Typography } from 'antd';
 import './Login.css';
 import wareh from '../../assets/warehouse.jpg'
-import logocat from '../../assets/Logocat.png'
+import title_e from '../../assets/title.png'
 import people_m from '../../assets/peoplemanage.png'
 
 const { Title, Text, Link } = Typography;
@@ -25,16 +25,10 @@ const WarehouseLogin: React.FC = () => {
               <img src={people_m} alt="employ" />
           </div>
         <div className="login-content">
-          <img src={logocat} alt="Logo" className="logo" />
-          <Title level={1} className="welcome-text">
-            <div className="text-wrapper">
-              <span className="highlight-text-1">W</span>
-              <div className="sub-text">
-                <span className="highlight-text-2"><span className="spaced-letter"></span>elcome to the</span>
-                <span className="highlight-text-3">AREHOUSE</span>
-              </div>
-            </div>
-          </Title>
+          <div className="title-image">
+              <img src={title_e} alt="title" />
+          </div>
+            <div className="span"></div>
           <Form className="login-form" layout="vertical">
             <Form.Item label="Email" name="email">
               <Input placeholder="Enter your email" />
