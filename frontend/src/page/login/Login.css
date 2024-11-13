@@ -133,14 +133,14 @@
 .text-wrapper {
   display: flex;
   flex-direction: row;
-  align-items: flex-end; /* ทำให้ sub-text ชิดตัวอักษร */
+  align-items: flex-end; 
 }
 
 .highlight-text-1 {
   font-size: 72px;
   font-weight: bold;
   color: #000;
-  margin-bottom: -10px; /* ขยับ "W" ขึ้นไป */
+  margin-bottom: -10px; 
 }
 .sub-text {
   display: flex;
