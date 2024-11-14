@@ -16,7 +16,7 @@ type Employee struct {
 	Address     string    `gorm:"not null"`
 	StartDate   time.Time `gorm:"not null"`
 	AccessLevel string    `gorm:"not null"`
-	Profile_E   string    `gorm:"type:longtext"`
+	Avatar      string    `gorm:"type:longtext"`
 
 	GenderID    uint
 	Gender      Gender `gorm:"foriegnKey:GenderID"`

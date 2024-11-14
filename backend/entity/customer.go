@@ -13,7 +13,7 @@ type Customer struct {
 	Password     string `gorm:"not null"`
 	Address      string `gorm:"not null"`
 	CustomerType string `gorm:"not null"`
-	Profile_C    string `gorm:"type:longtext"`
+	Avatar       string `gorm:"type:longtext"`
 
 	GenderID uint
 	Gender   Gender `gorm:"foriegnKey:GenderID"`
