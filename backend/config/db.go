@@ -30,10 +30,11 @@ func ConnectionDB() {
 func SetupDatabase() {
 
 	db.AutoMigrate(
-
-		&entity.Users{},
-
+		&entity.Customer{},
+		&entity.Employee{},
 		&entity.Genders{},
+		&entity.Positions{},
+		&entity.Warehouses{},
 	)
 
 	GenderMale := entity.Genders{Gender: "Male"}

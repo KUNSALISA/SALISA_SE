@@ -4,7 +4,7 @@ import (
 	"gorm.io/gorm"
 )
 
-type Position struct {
+type Positions struct {
 	gorm.Model
 	Position string
 

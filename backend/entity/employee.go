@@ -21,7 +21,7 @@ type Employee struct {
 	GenderID    uint
 	Gender      Genders `gorm:"foriegnKey:GenderID"`
 	PositionID  uint
-	Position    Position `gorm:"foreignKey:PositionID"`
+	Position    Positions `gorm:"foreignKey:PositionID"`
 	WarehouseID uint
-	Warehouse   Warehouse `gorm:"foreignKey:WarehouseID"`
+	Warehouse   Warehouses `gorm:"foreignKey:WarehouseID"`
 }

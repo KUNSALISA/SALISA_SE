@@ -4,7 +4,7 @@ import (
 	"gorm.io/gorm"
 )
 
-type Warehouse struct {
+type Warehouses struct {
 	gorm.Model
 	Warehouse_name string
 
