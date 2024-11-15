@@ -10,7 +10,7 @@ import (
 
 // GET /genders
 func ListGenders(c *gin.Context) {
-	var genders []entity.Gender
+	var genders []entity.Genders
 
 	db := config.DB()
 	db.Find(&genders)

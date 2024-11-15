@@ -19,7 +19,7 @@ type Employee struct {
 	AccessLevel string    `gorm:"not null"`
 
 	GenderID    uint
-	Gender      Gender `gorm:"foriegnKey:GenderID"`
+	Gender      Genders `gorm:"foriegnKey:GenderID"`
 	PositionID  uint
 	Position    Position `gorm:"foreignKey:PositionID"`
 	WarehouseID uint

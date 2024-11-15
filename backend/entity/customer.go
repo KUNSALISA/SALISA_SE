@@ -15,5 +15,5 @@ type Customer struct {
 	Address   string `gorm:"not null"`
 
 	GenderID uint
-	Gender   Gender `gorm:"foriegnKey:GenderID"`
+	Gender   Genders `gorm:"foriegnKey:GenderID"`
 }

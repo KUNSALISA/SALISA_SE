@@ -4,7 +4,7 @@ import (
 	"gorm.io/gorm"
 )
 
-type Gender struct {
+type Genders struct {
 	gorm.Model
 	Gender string
 
