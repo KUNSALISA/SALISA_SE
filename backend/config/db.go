@@ -38,37 +38,88 @@ func SetupDatabase() {
 	)
 
 	GenderMale := entity.Genders{Gender: "Male"}
-
-	GenderFemale := entity.Genders{Gender: "Female"}
-
 	db.FirstOrCreate(&GenderMale, &entity.Genders{Gender: "Male"})
 
+	GenderFemale := entity.Genders{Gender: "Female"}
 	db.FirstOrCreate(&GenderFemale, &entity.Genders{Gender: "Female"})
 
-	hashedPassword, _ := HashPassword("123456")
+	positions := []string{"Manager", "A", "B", "C", "D"}
+	positionMap := make(map[string]uint)
 
-	BirthDay, _ := time.Parse("2006-01-02", "1988-11-12")
-
-	User := &entity.Users{
-
-		FirstName: "Software",
-
-		LastName: "Analysis",
-
-		Email: "sa@gmail.com",
-
-		Age: 80,
-
-		Password: hashedPassword,
-
-		BirthDay: BirthDay,
-
-		GenderID: 1,
+	for _, pos := range positions {
+		position := entity.Positions{Position: pos}
+		db.FirstOrCreate(&position, &entity.Positions{Position: pos})
+		positionMap[pos] = position.ID
 	}
 
-	db.FirstOrCreate(User, &entity.Users{
+	hashedPassword, _ := HashPassword("admin")
+	startDate := time.Now()
 
-		Email: "sa@gmail.com",
-	})
+	employee := []entity.Employee{
+		{
+			E_FirstName: "John",
+			E_LastName:  "Doe",
+			Email:       "john.doe@example.com",
+			Number:      "1234567890",
+			Password:    hashedPassword,
+			Address:     "123 Main St",
+			StartDate:   startDate,
+			AccessLevel: "Manager",
+			GenderID:    GenderMale.ID,
+			PositionID:  positionMap["Manager"],
+		},
+		{
+			E_FirstName: "Jane",
+			E_LastName:  "Smith",
+			Email:       "jane.smith@example.com",
+			Number:      "0987654321",
+			Password:    hashedPassword,
+			Address:     "456 Elm St",
+			StartDate:   startDate,
+			AccessLevel: "A",
+			GenderID:    GenderFemale.ID,
+			PositionID:  positionMap["Developer"],
+		},
+		{
+			E_FirstName: "Alice",
+			E_LastName:  "Johnson",
+			Email:       "alice.johnson@example.com",
+			Number:      "1122334455",
+			Password:    hashedPassword,
+			Address:     "789 Pine St",
+			StartDate:   startDate,
+			AccessLevel: "B",
+			GenderID:    GenderFemale.ID,
+			PositionID:  positionMap["Tester"],
+		},
+		{
+			E_FirstName: "Bob",
+			E_LastName:  "Brown",
+			Email:       "bob.brown@example.com",
+			Number:      "6677889900",
+			Password:    hashedPassword,
+			Address:     "321 Oak St",
+			StartDate:   startDate,
+			AccessLevel: "C",
+			GenderID:    GenderMale.ID,
+			PositionID:  positionMap["HR"],
+		},
+		{
+			E_FirstName: "Eve",
+			E_LastName:  "Davis",
+			Email:       "eve.davis@example.com",
+			Number:      "4455667788",
+			Password:    hashedPassword,
+			Address:     "654 Maple St",
+			StartDate:   startDate,
+			AccessLevel: "D",
+			GenderID:    GenderFemale.ID,
+			PositionID:  positionMap["Support"],
+		},
+	}
+
+	for _, emp := range employee {
+		db.FirstOrCreate(&emp, &entity.Employee{Email: emp.Email})
+	}
 
 }

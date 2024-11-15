@@ -190,3 +190,9 @@ func CORSMiddleware() gin.HandlerFunc {
 		c.Next()
 	}
 }
+
+// func main() {
+// 	ConnectionDB()
+// 	SetupDatabase()
+// 	fmt.Println("Database setup completed.")
+// }
