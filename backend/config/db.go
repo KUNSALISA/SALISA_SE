@@ -15,9 +15,7 @@ import (
 var db *gorm.DB
 
 func DB() *gorm.DB {
-
 	return db
-
 }
 
 func ConnectionDB() {
