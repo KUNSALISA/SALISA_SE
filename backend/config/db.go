@@ -117,7 +117,6 @@ func SetupDatabase() {
 			PositionID:  positionMap["D"],
 		},
 	}
-
 	for _, emp := range employee {
 		db.FirstOrCreate(&emp, &entity.Employee{Email: emp.Email})
 	}
