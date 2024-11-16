@@ -61,7 +61,6 @@ const WarehouseLogin: React.FC = () => {
           </Form>
         </div>
       </div>
-      {/* Modal for Registration */}
       <Modal
         title="Register"
         visible={isModalVisible}
