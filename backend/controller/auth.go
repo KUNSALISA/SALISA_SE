@@ -110,7 +110,7 @@ func SignInEmployees(c *gin.Context) {
 		return
 
 	}
-	if err := config.DB().Raw("SELECT * FROM employee WHERE email = ?", payload.Email).Scan(&user).Error; err != nil {
+	if err := config.DB().Raw("SELECT * FROM employees WHERE email = ?", payload.Email).Scan(&user).Error; err != nil {
 
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
