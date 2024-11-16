@@ -1,0 +1,22 @@
+.login-container {
+    max-width: 400px;
+    margin: auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+  
+  .login-form {
+    width: 100%;
+  }
+  
+  .login-button {
+    width: 100%;
+  }
+  
+  .signup-link {
+    color: #1890ff;
+    cursor: pointer;
+  }
+  
