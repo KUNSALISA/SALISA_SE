@@ -52,7 +52,11 @@ func SetupDatabase() {
 		positionMap[pos] = position.ID
 	}
 
-	hashedPassword, _ := HashPassword("admin")
+	managerPassword, _ := HashPassword("manager123")
+	aPassword, _ := HashPassword("a123456")
+	bPassword, _ := HashPassword("b123456")
+	cPassword, _ := HashPassword("c123456")
+	dPassword, _ := HashPassword("d123456")
 	startDate := time.Now()
 
 	employee := []entity.Employee{
@@ -61,7 +65,7 @@ func SetupDatabase() {
 			E_LastName:  "Doe",
 			Email:       "Manager@gmail.com",
 			Number:      "1234567890",
-			Password:    hashedPassword,
+			Password:    managerPassword,
 			Address:     "123 Main St",
 			StartDate:   startDate,
 			AccessLevel: "Manager",
@@ -73,7 +77,7 @@ func SetupDatabase() {
 			E_LastName:  "Smith",
 			Email:       "A@gmail.com",
 			Number:      "0987654321",
-			Password:    hashedPassword,
+			Password:    aPassword,
 			Address:     "456 Elm St",
 			StartDate:   startDate,
 			AccessLevel: "A",
@@ -85,7 +89,7 @@ func SetupDatabase() {
 			E_LastName:  "Johnson",
 			Email:       "B@gmail.com",
 			Number:      "1122334455",
-			Password:    hashedPassword,
+			Password:    bPassword,
 			Address:     "789 Pine St",
 			StartDate:   startDate,
 			AccessLevel: "B",
@@ -97,7 +101,7 @@ func SetupDatabase() {
 			E_LastName:  "Brown",
 			Email:       "C@gmail.com",
 			Number:      "6677889900",
-			Password:    hashedPassword,
+			Password:    cPassword,
 			Address:     "321 Oak St",
 			StartDate:   startDate,
 			AccessLevel: "C",
@@ -109,7 +113,7 @@ func SetupDatabase() {
 			E_LastName:  "Davis",
 			Email:       "D@gmail.com",
 			Number:      "4455667788",
-			Password:    hashedPassword,
+			Password:    dPassword,
 			Address:     "654 Maple St",
 			StartDate:   startDate,
 			AccessLevel: "D",
