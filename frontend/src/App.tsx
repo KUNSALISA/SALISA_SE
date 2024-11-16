@@ -1,16 +1,16 @@
-// import React from 'react';
-// import Login from '../src/page/login/Login';
-// import Employee from './page/employee/employee';
+import React from 'react';
+import Login from '../src/page/login/Login';
+import Employee from './page/employee/employee';
 
-// const App: React.FC = () => {
-//   return (
-//     <div>
-//       <Login />
-//     </div>
-//   );
-// };
+const App: React.FC = () => {
+  return (
+    <div>
+      <Login />
+    </div>
+  );
+};
 
-// export default App;
+export default App;
 
 // import React from "react";
 // import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
@@ -51,29 +51,29 @@
 
 // export default App;
 
-import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import LoginPage from "./components/LoginPage";
-import ManagerDashboard from "./pages/ManagerDashboard";
-import ADashboard from "./pages/ADashboard";
-import BDashboard from "./pages/BDashboard";
-import CDashboard from "./pages/CDashboard";
-import DDashboard from "./pages/DDashboard";
+// import React from "react";
+// import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+// import LoginPage from "./components/LoginPage";
+// import ManagerDashboard from "./pages/ManagerDashboard";
+// import ADashboard from "./pages/ADashboard";
+// import BDashboard from "./pages/BDashboard";
+// import CDashboard from "./pages/CDashboard";
+// import DDashboard from "./pages/DDashboard";
 
-const App: React.FC = () => {
-  return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<LoginPage />} />
-        <Route path="/manager-dashboard" element={<ManagerDashboard />} />
-        <Route path="/a-dashboard" element={<ADashboard />} />
-        <Route path="/b-dashboard" element={<BDashboard />} />
-        <Route path="/c-dashboard" element={<CDashboard />} />
-        <Route path="/d-dashboard" element={<DDashboard />} />
-      </Routes>
-    </Router>
-  );
-};
+// const App: React.FC = () => {
+//   return (
+//     <Router>
+//       <Routes>
+//         <Route path="/" element={<LoginPage />} />
+//         <Route path="/manager-dashboard" element={<ManagerDashboard />} />
+//         <Route path="/a-dashboard" element={<ADashboard />} />
+//         <Route path="/b-dashboard" element={<BDashboard />} />
+//         <Route path="/c-dashboard" element={<CDashboard />} />
+//         <Route path="/d-dashboard" element={<DDashboard />} />
+//       </Routes>
+//     </Router>
+//   );
+// };
 
-export default App;
+// export default App;
 
