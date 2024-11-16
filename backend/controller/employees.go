@@ -8,110 +8,75 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func GetAll(c *gin.Context) {
+func GetListEmployees(c *gin.Context) {
 
-	var users []entity.Employee
-
+	var employees []entity.Employee
 	db := config.DB()
 
-	results := db.Preload("Gender").Find(&users)
-
+	results := db.Preload("Gender").Find(&employees)
 	if results.Error != nil {
-
 		c.JSON(http.StatusNotFound, gin.H{"error": results.Error.Error()})
-
 		return
-
 	}
-
-	c.JSON(http.StatusOK, users)
+	c.JSON(http.StatusOK, employees)
 
 }
 
-func Get(c *gin.Context) {
+func GetEmployees(c *gin.Context) {
 
 	ID := c.Param("id")
 
-	var user entity.Employee
-
+	var employees entity.Employee
 	db := config.DB()
 
-	results := db.Preload("Gender").First(&user, ID)
-
+	results := db.Preload("Gender").First(&employees, ID)
 	if results.Error != nil {
-
 		c.JSON(http.StatusNotFound, gin.H{"error": results.Error.Error()})
-
 		return
-
 	}
-
-	if user.ID == 0 {
-
+	if employees.ID == 0 {
 		c.JSON(http.StatusNoContent, gin.H{})
-
 		return
-
 	}
-
-	c.JSON(http.StatusOK, user)
+	c.JSON(http.StatusOK, employees)
 
 }
 
-func Update(c *gin.Context) {
+func UpdateEmployees(c *gin.Context) {
 
-	var user entity.Employee
+	ID := c.Param("id")
 
-	UserID := c.Param("id")
-
+	var employees entity.Employee
 	db := config.DB()
 
-	result := db.First(&user, UserID)
-
+	result := db.First(&employees, ID)
 	if result.Error != nil {
-
 		c.JSON(http.StatusNotFound, gin.H{"error": "id not found"})
-
 		return
-
 	}
-
-	if err := c.ShouldBindJSON(&user); err != nil {
-
+	if err := c.ShouldBindJSON(&employees); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Bad request, unable to map payload"})
-
 		return
-
 	}
 
-	result = db.Save(&user)
-
+	result = db.Save(&employees)
 	if result.Error != nil {
-
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Bad request"})
-
 		return
-
 	}
-
 	c.JSON(http.StatusOK, gin.H{"message": "Updated successful"})
 
 }
 
-func Delete(c *gin.Context) {
+func DeleteEmployees(c *gin.Context) {
 
-	id := c.Param("id")
+	ID := c.Param("id")
 
 	db := config.DB()
-
-	if tx := db.Exec("DELETE FROM users WHERE id = ?", id); tx.RowsAffected == 0 {
-
+	if tx := db.Exec("DELETE FROM users WHERE id = ?", ID); tx.RowsAffected == 0 {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "id not found"})
-
 		return
-
 	}
-
 	c.JSON(http.StatusOK, gin.H{"message": "Deleted successful"})
 
 }
