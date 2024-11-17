@@ -4,12 +4,12 @@ import { Form, Input, Button, message } from "antd";
 import {SignInInterface} from '../interfaces/SignIn';
 import {EmployeeInterface} from '../interfaces/InterfaceFull';
 
-const SignInPages = () => {
+function SignInPages() {
   const navigate = useNavigate();
   const [messageApi, contextHolder] = message.useMessage();
 
   const onFinish = async (values: SignInInterface) => {
-    const res = await SignIn(values);
+    let res = await SignIn(values);
 
     if (res.status === 200) {
       const { token, token_type, id, access_level } = res.data;
@@ -22,7 +22,7 @@ const SignInPages = () => {
       localStorage.setItem("id", id);
       localStorage.setItem("access_level", access_level);
 
-      // เปลี่ยนเส้นทางตาม access_level
+      // Redirect based on access_level
       switch (access_level) {
         case "Manager":
           navigate("/manager");
@@ -75,6 +75,6 @@ const SignInPages = () => {
       </Form>
     </>
   );
-};
+}
 
 export default SignInPages;
