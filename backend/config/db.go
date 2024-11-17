@@ -59,7 +59,7 @@ func SetupDatabase() {
 	dPassword, _ := HashPassword("d123456")
 	startDate := time.Now()
 
-	employee := []entity.Employee{
+	employee := []entity.Employee{ //ยังไม่ใส่รูป Avatar
 		{
 			E_FirstName: "John",
 			E_LastName:  "Doe",
