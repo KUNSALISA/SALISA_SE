@@ -1,31 +1,57 @@
-import React, { useState } from 'react';
-import { Button, Input, Form, Typography, Modal, Select } from 'antd';
-import './Login.css';
-import wareh from '../../assets/warehouse.jpg';
-import title_e from '../../assets/title.png';
-import people_m from '../../assets/peoplemanage.png';
+import { Button, Input, Form, message } from "antd";
+import { useNavigate } from "react-router-dom";
+import "./Login.css";
+import wareh from "../../assets/warehouse.jpg";
+import title_e from "../../assets/title.png";
+import people_m from "../../assets/peoplemanage.png";
+import { SignIn } from "../../services/https/index"; 
+import {SignInInterface} from '../../interfaces/SignIn';
 
-const { Title, Text, Link } = Typography;
-const { Option } = Select;
+function WarehouseLogin() {
+  const navigate = useNavigate();
+  const [messageApi, contextHolder] = message.useMessage();
 
-const WarehouseLogin: React.FC = () => {
-  const [isModalVisible, setIsModalVisible] = useState(false);
+  const onFinish = async (values: SignInInterface) => {
+    let res = await SignIn(values);
 
-  const showModal = () => {
-    setIsModalVisible(true);
-  };
+    if (res.status === 200) {
+      const { token, token_type, id, access_level } = res.data;
 
-  const handleCancel = () => {
-    setIsModalVisible(false);
-  };
+      messageApi.success("Sign-in successful");
 
-  const handleRegister = (values: any) => {
-    console.log('Register values:', values);
-    setIsModalVisible(false);
+      localStorage.setItem("isLogin", "true");
+      localStorage.setItem("token", token);
+      localStorage.setItem("token_type", token_type);
+      localStorage.setItem("id", id);
+      localStorage.setItem("access_level", access_level);
+
+      switch (access_level) {
+        case "Manager":
+          navigate("/manager");
+          break;
+        case "A":
+          navigate("/page-a");
+          break;
+        case "B":
+          navigate("/page-b");
+          break;
+        case "C":
+          navigate("/page-c");
+          break;
+        case "D":
+          navigate("/page-d");
+          break;
+        default:
+          navigate("/dashboard");
+      }
+    } else {
+      messageApi.error(res.data.error || "Sign-in failed");
+    }
   };
 
   return (
     <div className="login-container">
+      {contextHolder}
       <div className="background-square"></div>
       <div className="background-square-1"></div>
       <div className="background-square-2"></div>
@@ -45,64 +71,31 @@ const WarehouseLogin: React.FC = () => {
             <img src={title_e} alt="title" />
           </div>
           <div className="span"></div>
-          <Form className="login-form" layout="vertical">
-            <Form.Item label="Email" name="email">
+          <Form className="login-form" layout="vertical" onFinish={onFinish}>
+            <Form.Item
+              label="Email"
+              name="email"
+              rules={[{ required: true, message: "Please input your email!" }]}
+            >
               <Input placeholder="Enter your email" />
             </Form.Item>
-            <Form.Item label="Password" name="password">
+            <Form.Item
+              label="Password"
+              name="password"
+              rules={[{ required: true, message: "Please input your password!" }]}
+            >
               <Input.Password placeholder="Enter your password" />
+            </Form.Item>
+            <Form.Item>
               <Button type="primary" htmlType="submit" className="login-button">
                 LOGIN
               </Button>
             </Form.Item>
-            <Text>
-              Don't have an account? <Link onClick={showModal}>Sign Up</Link>
-            </Text>
           </Form>
         </div>
       </div>
-      <Modal
-        title="Register"
-        visible={isModalVisible}
-        onCancel={handleCancel}
-        footer={null}
-      >
-        <Form layout="vertical" onFinish={handleRegister}>
-          <Form.Item
-            label="Email"
-            name="email"
-            rules={[{ required: true, message: 'Please input your email!' }]}
-          >
-            <Input placeholder="Enter your email" />
-          </Form.Item>
-          <Form.Item
-            label="Password"
-            name="password"
-            rules={[{ required: true, message: 'Please input your password!' }]}
-          >
-            <Input.Password placeholder="Enter your password" />
-          </Form.Item>
-          <Form.Item
-            label="Position"
-            name="position"
-            rules={[{ required: true, message: 'Please select your position!' }]}
-          >
-            <Select placeholder="Select your position">
-              <Option value="admin">Admin</Option>
-              <Option value="staff">Staff</Option>
-              <Option value="manager">Manager</Option>
-            </Select>
-          </Form.Item>
-          <Form.Item>
-            <Button type="primary" htmlType="submit" className="register-button">
-              Register
-            </Button>
-          </Form.Item>
-        </Form>
-      </Modal>
     </div>
   );
 };
 
 export default WarehouseLogin;
-
