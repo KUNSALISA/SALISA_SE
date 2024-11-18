@@ -2,7 +2,7 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import LoginPage from "../src/page/login/Login";
 import Dashboard from "./pages/Dashboard";
-import ManagerPage from "./pages/ManagerPage";
+import ManagerPage from "../src/page/dash/Dash";
 import PageA from "./pages/PageA";
 import PageB from "./pages/PageB";
 import PageC from "./pages/PageC";
