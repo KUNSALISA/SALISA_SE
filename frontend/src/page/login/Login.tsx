@@ -24,7 +24,7 @@ function WarehouseLogin() {
       localStorage.setItem("token_type", token_type);
       localStorage.setItem("id", id);
       localStorage.setItem("access_level", access_level);
-      localStorage.setItem("avatar", avatar); // เก็บ Avatar ลง localStorage
+      localStorage.setItem("avatar", avatar); 
 
       switch (access_level) {
         case "Manager":
