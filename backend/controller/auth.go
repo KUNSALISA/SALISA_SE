@@ -99,51 +99,6 @@ func SignUpEmployees(c *gin.Context) {
 
 }
 
-// func SignInEmployees(c *gin.Context) {
-
-// 	var payload Authen
-// 	var user entity.Employee
-
-// 	if err := c.ShouldBindJSON(&payload); err != nil {
-
-// 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-// 		return
-
-// 	}
-// 	if err := config.DB().Raw("SELECT * FROM employees WHERE email = ?", payload.Email).Scan(&user).Error; err != nil {
-
-// 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-// 		return
-
-// 	}
-
-// 	err := bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(payload.Password))
-// 	if err != nil {
-
-// 		c.JSON(http.StatusBadRequest, gin.H{"error": "password is incerrect"})
-// 		return
-
-// 	}
-
-// 	jwtWrapper := services.JwtWrapper{
-
-// 		SecretKey:       "SvNQpBN8y3qlVrsGAYYWoJJk56LtzFHx",
-// 		Issuer:          "AuthService",
-// 		ExpirationHours: 24,
-// 	}
-
-// 	signedToken, err := jwtWrapper.GenerateToken(user.Email)
-// 	if err != nil {
-
-// 		c.JSON(http.StatusBadRequest, gin.H{"error": "error signing token"})
-// 		return
-
-// 	}
-// 	c.JSON(http.StatusOK, gin.H{"token_type": "Bearer", "token": signedToken, "id": user.ID})
-
-// }
-
-
 func SignInEmployees(c *gin.Context) {
 	var payload Authen
 	var user entity.Employee

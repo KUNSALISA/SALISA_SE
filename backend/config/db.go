@@ -66,6 +66,7 @@ func SetupDatabase() {
 			Email:       "Manager@gmail.com",
 			Number:      "1234567890",
 			Password:    managerPassword,
+			Avatar:      "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAVwAAAFcBAMAAAB2OBsfAAAAElBMVEXu7u4AAAD",
 			Address:     "123 Main St",
 			StartDate:   startDate,
 			AccessLevel: "Manager",

@@ -13,7 +13,7 @@ func GetListEmployees(c *gin.Context) {
 	var employees []entity.Employee
 	db := config.DB()
 
-	results := db.Preload("Gender").Find(&employees)
+	results := db.Preload("Gender").Preload("Positions").Find(&employees)
 	if results.Error != nil {
 		c.JSON(http.StatusNotFound, gin.H{"error": results.Error.Error()})
 		return
@@ -29,7 +29,7 @@ func GetEmployees(c *gin.Context) {
 	var employees entity.Employee
 	db := config.DB()
 
-	results := db.Preload("Gender").First(&employees, ID)
+	results := db.Preload("Gender").Preload("Positions").First(&employees, ID)
 	if results.Error != nil {
 		c.JSON(http.StatusNotFound, gin.H{"error": results.Error.Error()})
 		return
