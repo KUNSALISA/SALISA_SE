@@ -15,7 +15,7 @@ function WarehouseLogin() {
     let res = await SignIn(values);
 
     if (res.status === 200) {
-      const { token, token_type, id, access_level, avatar} = res.data;
+      const { token, token_type, id, access_level, avatar, e_firstname, e_lastname} = res.data;
 
       messageApi.success("Sign-in successful");
 
@@ -25,6 +25,8 @@ function WarehouseLogin() {
       localStorage.setItem("id", id);
       localStorage.setItem("access_level", access_level);
       localStorage.setItem("avatar", avatar); 
+      localStorage.setItem("e_firstname", e_firstname); 
+      localStorage.setItem("e_lastname", e_lastname); 
 
       switch (access_level) {
         case "Manager":

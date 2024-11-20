@@ -1,4 +1,4 @@
-.warehouse-container {
+/* .warehouse-container {
     width: 100%;
     height: 100vh;
     background: linear-gradient(0deg, rgba(16, 82, 94, 0.45), rgba(16, 82, 94, 0.45)),
@@ -59,5 +59,76 @@
   
   .data-table {
     width: 90%;
+  }
+   */
+   .layout {
+    min-height: 100vh;
+    background: #f0f2f5;
+  }
+  
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #001529;
+    padding: 0 20px;
+  }
+  
+  .logo {
+    display: flex;
+    align-items: center;
+  }
+  
+  .logo-image {
+    height: 40px;
+    margin-right: 10px;
+  }
+  
+  .logo-text {
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+  }
+  
+  .menu {
+    flex-grow: 1;
+    margin-left: 20px;
+  }
+  
+  .avatar-section {
+    display: flex;
+    align-items: center;
+  }
+  
+  .content {
+    padding: 20px;
+  }
+  
+  .search-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 50px;
+  }
+  
+  .search-input {
+    width: 300px;
+    padding: 10px;
+    border: 1px solid #d9d9d9;
+    border-radius: 4px 0 0 4px;
+    outline: none;
+  }
+  
+  .search-button {
+    padding: 10px 15px;
+    background: #001529;
+    color: white;
+    border: none;
+    border-radius: 0 4px 4px 0;
+    cursor: pointer;
+  }
+  
+  .search-button:hover {
+    background: #1890ff;
   }
   

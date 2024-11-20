@@ -1,0 +1,84 @@
+/* SharedLayout.css */
+
+/* สไตล์สำหรับ Layout ทั้งหมด */
+.layout {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  /* สไตล์ Header */
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #001529; /* สีพื้นหลัง */
+    padding: 0 20px;
+    height: 64px;
+    color: white;
+  }
+  
+  /* โลโก้ */
+  .logo {
+    display: flex;
+    align-items: center;
+  }
+  
+  .logo-image {
+    height: 40px;
+    margin-right: 10px;
+  }
+  
+  .logo-text {
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+  }
+  
+  /* เมนู */
+  .menu {
+    flex: 1;
+    margin-left: 20px;
+  }
+  
+  /* ส่วน Avatar */
+  .avatar-section {
+    display: flex;
+    align-items: center;
+  }
+  
+  /* สไตล์สำหรับ Content */
+  .content {
+    flex: 1;
+    padding: 20px;
+    background-color: #f0f2f5; /* สีพื้นหลังเนื้อหา */
+  }
+  
+  /* ส่วนค้นหา */
+  .search-section {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  
+  .search-input {
+    padding: 8px 12px;
+    border: 1px solid #d9d9d9;
+    border-radius: 4px;
+    width: 300px;
+    margin-right: 10px;
+  }
+  
+  .search-button {
+    padding: 8px 12px;
+    background-color: #1890ff;
+    border: none;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .search-button:hover {
+    background-color: #40a9ff;
+  }
+  

@@ -137,5 +137,8 @@ func SignInEmployees(c *gin.Context) {
 		"id":           user.ID,
 		"access_level": user.AccessLevel, // ส่งค่า AccessLevel หรือ Position
 		"avatar":       user.Avatar, // ส่ง Avatar ไปด้วย
+		"e_firstname":       user.E_FirstName,
+		"e_lastname":       user.E_LastName,
 	})
 }
+	
