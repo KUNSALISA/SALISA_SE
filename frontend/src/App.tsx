@@ -42,11 +42,6 @@
 // export default App;
 
 
-
-
-
-
-
 import React from 'react';
 import TeamPage from "../src/TeamPage"
 
