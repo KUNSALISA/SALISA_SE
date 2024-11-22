@@ -50,7 +50,6 @@
   /* สไตล์สำหรับ Content */
   .content {
     flex: 1;
-    padding: 20px;
     background-color: #f0f2f5; /* สีพื้นหลังเนื้อหา */
   }
   

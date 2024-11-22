@@ -1,23 +1,7 @@
 import React, { useState, useEffect } from "react";
-import {
-  Layout,
-  Card,
-  Input,
-  Button,
-  Row,
-  Col,
-  Modal,
-  Form,
-  Select,
-  DatePicker,
-} from "antd";
-import {
-  UserOutlined,
-  SearchOutlined,
-  UpOutlined,
-  PlusOutlined,
-} from "@ant-design/icons";
-import "./TeamPage.css";
+import {Layout, Card, Input, Button, Row, Col, Modal, Form, Select, DatePicker } from "antd";
+import {UserOutlined, SearchOutlined, UpOutlined, PlusOutlined } from "@ant-design/icons";
+import "../../TeamPage.css";
 
 const { Header, Footer, Content } = Layout;
 const { Option } = Select;

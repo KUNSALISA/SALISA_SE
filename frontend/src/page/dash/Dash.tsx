@@ -1,195 +1,273 @@
-// import React, { useState, useEffect } from 'react';
-// import { Table, Button, Input } from 'antd';
-// import { useNavigate } from 'react-router-dom';
-// import './Dash.css';
-
-// const { Search } = Input;
-
-// interface Employee {
-//   id: number;
-//   firstName: string;
-//   lastName: string;
-//   position: string;
-//   startDate: string;
-// }
-
-// interface Customer {
-//   id: number;
-//   firstName: string;
-//   lastName: string;
-// }
-
-// const Warehouse: React.FC = () => {
-//   const [data, setData] = useState<Array<Employee | Customer>>([]);
-//   const [isEmployee, setIsEmployee] = useState(true);
-//   const [filteredData, setFilteredData] = useState<Array<Employee | Customer>>([]);
-//   const navigate = useNavigate();
-
-//   useEffect(() => {
-//     // Fetch data from backend API
-//     const fetchData = async () => {
-//       const endpoint = isEmployee ? '/api/employees' : '/api/customers';
-//       const response = await fetch(endpoint);
-//       const result = await response.json();
-//       if (!isEmployee) {
-//         // Add position field for customers
-//         result.forEach((customer: Customer) => {
-//           customer.position = 'Customer';
-//         });
-//       }
-//       setData(result);
-//       setFilteredData(result);
-//     };
-//     fetchData();
-//   }, [isEmployee]);
-
-//   const handleSearch = (value: string) => {
-//     const filtered = data.filter((item: any) =>
-//       `${item.firstName} ${item.lastName}`.toLowerCase().includes(value.toLowerCase())
-//     );
-//     setFilteredData(filtered);
-//   };
-
-//   const columns = [
-//     {
-//       title: 'First Name',
-//       dataIndex: 'firstName',
-//       key: 'firstName',
-//     },
-//     {
-//       title: 'Last Name',
-//       dataIndex: 'lastName',
-//       key: 'lastName',
-//     },
-//     {
-//       title: 'Position',
-//       dataIndex: 'position',
-//       key: 'position',
-//     },
-//     {
-//       title: 'Start Date',
-//       dataIndex: 'startDate',
-//       key: 'startDate',
-//       render: (text: string) => (isEmployee ? text : '-'),
-//     },
-//   ];
-
-//   return (
-//     <div className="warehouse-container">
-//       <div className="header">
-//         <img src="https://via.placeholder.com/192x172" alt="logo" className="logo" />
-//         <h1 className="title">WAREHOUSE</h1>
-//         <div className="button-group">
-//           <Button
-//             type="primary"
-//             className="nav-button"
-//             onClick={() => {
-//               setIsEmployee(true);
-//             }}
-//           >
-//             Employee
-//           </Button>
-//           <Button
-//             type="primary"
-//             className="nav-button"
-//             onClick={() => {
-//               setIsEmployee(false);
-//             }}
-//           >
-//             Customer
-//           </Button>
-//         </div>
-//         <div className="profile-icon"></div>
-//       </div>
-//       <div className="content">
-//         <Search
-//           placeholder="Search by name"
-//           onSearch={handleSearch}
-//           className="search-bar"
-//         />
-//         <Table
-//           columns={columns}
-//           dataSource={filteredData}
-//           rowKey="id"
-//           className="data-table"
-//         />
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default Warehouse;
-
 // import React from "react";
+// import { Layout, Menu, Avatar } from "antd";
+// import { UserOutlined } from "@ant-design/icons";
+// import { Link } from "react-router-dom";
+// import "./Dash.css";
+
+// const { Header, Content } = Layout;
 
 // const ManagerPage: React.FC = () => {
 //   const avatar = localStorage.getItem("avatar");
 
 //   return (
-//     <div>
-//       <h1>Welcome, Manager!</h1>
-//       {avatar && (
-//         <img
-//           src={avatar}
-//           alt="Manager Avatar"
-//           style={{ width: "100px", borderRadius: "50%" }}
-//         />
-//       )}
-//     </div>
+//     <Layout className="layout">
+//       <Header className="header">
+//         <div className="logo">
+//           <img src="/logo.png" alt="Logo" className="logo-image" />
+//           <span className="logo-text">WAREHOUSE</span>
+//         </div>
+//         <Menu theme="dark" mode="horizontal" className="menu">
+//           <Menu.Item key="1">
+//             <Link to="/manager">Home</Link>
+//           </Menu.Item>
+//           <Menu.Item key="2">
+//             <Link to="/employee">Employee</Link>
+//           </Menu.Item>
+//           <Menu.Item key="3">
+//             <Link to="/customer">Customer</Link>
+//           </Menu.Item>
+//         </Menu>
+//         <div className="avatar-section">
+//           {avatar ? (
+//             <Avatar src={avatar} size="large" />
+//           ) : (
+//             <Avatar icon={<UserOutlined />} size="large" />
+//           )}
+//         </div>
+//       </Header>
+//       <Content className="content">
+//         <div className="search-section">
+//           <input type="text" placeholder="Search" className="search-input" />
+//           <button className="search-button">
+//             <span role="img" aria-label="search">
+//               🔍
+//             </span>
+//           </button>
+//         </div>
+//       </Content>
+//     </Layout>
 //   );
 // };
 
 // export default ManagerPage;
 
-import React from "react";
-import { Layout, Menu, Avatar } from "antd";
-import { UserOutlined } from "@ant-design/icons";
-import { Link } from "react-router-dom";
-import "./Dash.css";
+import React, { useState, useEffect } from "react";
+import {Layout, Card, Input, Button, Row, Col, Modal, Form, Select, DatePicker } from "antd";
+import {UserOutlined, SearchOutlined, UpOutlined, PlusOutlined } from "@ant-design/icons";
+import "../../TeamPage.css";
 
-const { Header, Content } = Layout;
+const { Header, Footer, Content } = Layout;
+const { Option } = Select;
 
-const ManagerPage: React.FC = () => {
-  const avatar = localStorage.getItem("avatar");
+interface Member {
+  id: number;
+  name: string;
+  role: string;
+  avatar: string;
+  number: string;
+  email: string;
+  address: string;
+  startDate: string;
+  accessLevel: string;
+  gender: string;
+  position: string;
+  warehouse: string;
+}
+
+const TeamPage: React.FC = () => {
+  const [searchQuery, setSearchQuery] = useState("");
+  const [showAll, setShowAll] = useState(false);
+  const [showScrollToTop, setShowScrollToTop] = useState(false);
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [isAddModalVisible, setIsAddModalVisible] = useState(false);
+  const [selectedMember, setSelectedMember] = useState<Member | null>(null);
+  const [form] = Form.useForm();
+
+  const teamMembers: Member[] = Array.from({ length: 12 }).map((_, index) => ({
+    id: index,
+    name: `Rory Hong ${index + 1}`,
+    role: index % 2 === 0 ? "Senior" : "Junior",
+    avatar: "https://via.placeholder.com/150",
+    number: `+12345678${index}`,
+    email: `rory.hong${index}@example.com`,
+    address: `123 Example Street ${index}`,
+    startDate: "2022-01-01",
+    accessLevel: index % 2 === 0 ? "Admin" : "User",
+    gender: index % 2 === 0 ? "Male" : "Female",
+    position: index % 2 === 0 ? "Manager" : "Staff",
+    warehouse: `Warehouse ${index + 1}`,
+  }));
+
+  const filteredMembers = teamMembers.filter(
+    (member) =>
+      member.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      member.role.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
+  const displayedMembers = showAll ? filteredMembers : filteredMembers.slice(0, 8);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setShowScrollToTop(window.scrollY > 200);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  const showModal = (member: Member) => {
+    setSelectedMember(member);
+    setIsModalVisible(true);
+  };
+
+  const closeModal = () => {
+    setIsModalVisible(false);
+    setSelectedMember(null);
+  };
+
+  const showAddModal = () => {
+    setIsAddModalVisible(true);
+  };
+
+  const closeAddModal = () => {
+    setIsAddModalVisible(false);
+    form.resetFields();
+  };
+
+  const handleAddMember = (values: any) => {
+    console.log("New Member Data:", values);
+    closeAddModal();
+  };
 
   return (
-    <Layout className="layout">
-      <Header className="header">
-        <div className="logo">
-          <img src="/logo.png" alt="Logo" className="logo-image" />
-          <span className="logo-text">WAREHOUSE</span>
-        </div>
-        <Menu theme="dark" mode="horizontal" className="menu">
-          <Menu.Item key="1">
-            <Link to="/manager">Home</Link>
-          </Menu.Item>
-          <Menu.Item key="2">
-            <Link to="/employee">Employee</Link>
-          </Menu.Item>
-          <Menu.Item key="3">
-            <Link to="/customer">Customer</Link>
-          </Menu.Item>
-        </Menu>
-        <div className="avatar-section">
-          {avatar ? (
-            <Avatar src={avatar} size="large" />
-          ) : (
-            <Avatar icon={<UserOutlined />} size="large" />
-          )}
+    <Layout className="team-layout">
+      <Header className="team-header">
+        <div className="team-title">
+            <h1>OUR TEAM</h1>
+            <p>
+            If you're stressed about work, don’t quit just yet<br />
+            because if you do, you'll end up stressing about money too.
+            </p>
         </div>
       </Header>
-      <Content className="content">
-        <div className="search-section">
-          <input type="text" placeholder="Search" className="search-input" />
-          <button className="search-button">
-            <span role="img" aria-label="search">
-              🔍
-            </span>
-          </button>
+
+
+      <Content className="team-content">
+        <div className="team-info">
+          <UserOutlined className="team-info-icon" />
+          <span className="team-info-count">{teamMembers.length}</span>
+          <Button
+            type="primary"
+            icon={<PlusOutlined />}
+            className="add-btn"
+            onClick={showAddModal}
+          />
         </div>
+
+        <div className="search-bar">
+          <Input
+            placeholder="Search by name or role"
+            suffix={<SearchOutlined />}
+            className="search-input"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
+        </div>
+
+        <Row gutter={[24, 24]} className="team-cards">
+          {displayedMembers.map((member) => (
+            <Col span={6} key={member.id}>
+              <Card
+                className="team-card"
+                cover={
+                  <div
+                    className="card-image"
+                    style={{ backgroundImage: `url(${member.avatar})` }}
+                    onClick={() => showModal(member)}
+                  />
+                }
+              >
+                <Card.Meta
+                  title={member.name}
+                  description={member.role}
+                  className="card-meta"
+                />
+              </Card>
+            </Col>
+          ))}
+        </Row>
+
+        {!showAll && filteredMembers.length > 8 && (
+          <div className="show-all-container">
+            <Button type="primary" onClick={() => setShowAll(true)}>
+              Show All
+            </Button>
+          </div>
+        )}
+
+        {showScrollToTop && (
+          <Button
+            type="primary"
+            shape="circle"
+            icon={<UpOutlined />}
+            onClick={scrollToTop}
+            className="scroll-to-top-btn"
+          />
+        )}
+
+        {/* Add Member Modal */}
+        <Modal
+          title="Add New Member"
+          visible={isAddModalVisible}
+          onCancel={closeAddModal}
+          footer={null}
+        >
+          <Form form={form} layout="vertical" onFinish={handleAddMember}>
+            <Form.Item
+              label="First Name"
+              name="firstName"
+              rules={[{ required: true, message: "Please enter first name" }]}
+            >
+              <Input />
+            </Form.Item>
+            {/* Remaining Form Fields */}
+          </Form>
+        </Modal>
+
+        {/* Member Details Modal */}
+        <Modal
+          title="Member Details"
+          visible={isModalVisible}
+          onCancel={closeModal}
+          footer={[
+            <Button key="close" onClick={closeModal}>
+              Close
+            </Button>,
+            <Button key="edit" type="primary">
+              Edit
+            </Button>,
+          ]}
+        >
+          {selectedMember && (
+            <>
+              <p>
+                <strong>Name:</strong> {selectedMember.name}
+              </p>
+              {/* Remaining Member Details */}
+            </>
+          )}
+        </Modal>
       </Content>
+
+      <Footer className="team-footer">
+        <div className="footer-content">About</div>
+      </Footer>
     </Layout>
   );
 };
 
-export default ManagerPage;
+export default TeamPage;

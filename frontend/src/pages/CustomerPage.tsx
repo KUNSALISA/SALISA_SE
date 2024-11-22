@@ -1,16 +1,3 @@
-// import React from "react";
-
-// const CustomerPage: React.FC = () => {
-//   return (
-//     <div>
-//       <h1>Customer Page</h1>
-//       <p>This is the customer-specific page.</p>
-//     </div>
-//   );
-// };
-
-// export default CustomerPage;
-
 import React from "react";
 import { Card, Avatar, Button, Typography, Row, Col } from "antd";
 import { UserOutlined, PlusOutlined } from "@ant-design/icons";
@@ -26,17 +13,7 @@ const CustomerPage: React.FC = () => {
   ];
 
   return (
-    <div className="customer-page">
-      {/* Header Section */}
-      <div className="header">
-        <div className="logo">
-          <Avatar size={96} icon={<UserOutlined />} />
-          <Title level={1} style={{ color: "white" }}>WAREHOUSE</Title>
-        </div>
-        <Button className="home-button">HOME</Button>
-        <Avatar className="profile-avatar" icon={<UserOutlined />} />
-      </div>
-
+    <div className="customer-content">
       {/* Customer Section */}
       <div className="customer-info">
         <Title level={2} className="customer-title">CUSTOMER</Title>
@@ -61,11 +38,6 @@ const CustomerPage: React.FC = () => {
           </Col>
         ))}
       </Row>
-
-      {/* Footer Section */}
-      <div className="footer">
-        <Text style={{ color: "white", fontSize: 24 }}>About</Text>
-      </div>
     </div>
   );
 };
