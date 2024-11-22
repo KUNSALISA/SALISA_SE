@@ -1,15 +1,4 @@
-// import React from "react";
 
-// const EmployeePage: React.FC = () => {
-//   return (
-//     <div>
-//       <h1>Employee Page</h1>
-//       <p>This is the employee-specific page.</p>
-//     </div>
-//   );
-// };
-
-// export default EmployeePage;
 
 import React from "react";
 import { Card, Button, Row, Col, Typography, Avatar } from "antd";
