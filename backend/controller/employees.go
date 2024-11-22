@@ -13,7 +13,7 @@ func GetListEmployees(c *gin.Context) {
 	var employees []entity.Employee
 	db := config.DB()
 
-	results := db.Preload("Gender").Preload("Positions").Find(&employees)
+	results := db.Preload("Gender").Preload("Position").Preload("Warehouse").Find(&employees)
 	if results.Error != nil {
 		c.JSON(http.StatusNotFound, gin.H{"error": results.Error.Error()})
 		return

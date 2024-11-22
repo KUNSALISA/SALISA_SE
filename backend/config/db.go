@@ -43,6 +43,12 @@ func SetupDatabase() {
 	GenderFemale := entity.Genders{Gender: "Female"}
 	db.FirstOrCreate(&GenderFemale, &entity.Genders{Gender: "Female"})
 
+	Warehouse1 := entity.Warehouses{Warehouse_name: "F11"}
+	db.FirstOrCreate(&Warehouse1, &entity.Warehouses{Warehouse_name: "F11"})
+
+	Warehouse2 := entity.Warehouses{Warehouse_name: "F12"}
+	db.FirstOrCreate(&Warehouse2, &entity.Warehouses{Warehouse_name: "F12"})
+
 	positions := []string{"Manager", "A", "B", "C", "D"}
 	positionMap := make(map[string]uint)
 
@@ -72,6 +78,7 @@ func SetupDatabase() {
 			AccessLevel: "Manager",
 			GenderID:    GenderMale.ID,
 			PositionID:  positionMap["Manager"],
+			WarehouseID: Warehouse1.ID,
 		},
 		{
 			E_FirstName: "Jane",
@@ -85,6 +92,7 @@ func SetupDatabase() {
 			AccessLevel: "A",
 			GenderID:    GenderFemale.ID,
 			PositionID:  positionMap["A"],
+			WarehouseID: Warehouse1.ID,
 		},
 		{
 			E_FirstName: "Alice",
@@ -98,6 +106,7 @@ func SetupDatabase() {
 			AccessLevel: "B",
 			GenderID:    GenderFemale.ID,
 			PositionID:  positionMap["B"],
+			WarehouseID: Warehouse2.ID,
 		},
 		{
 			E_FirstName: "Bob",
@@ -111,6 +120,7 @@ func SetupDatabase() {
 			AccessLevel: "C",
 			GenderID:    GenderMale.ID,
 			PositionID:  positionMap["C"],
+			WarehouseID: Warehouse1.ID,
 		},
 		{
 			E_FirstName: "Eve",
@@ -124,6 +134,7 @@ func SetupDatabase() {
 			AccessLevel: "D",
 			GenderID:    GenderFemale.ID,
 			PositionID:  positionMap["D"],
+			WarehouseID: Warehouse2.ID,
 		},
 	}
 	for _, emp := range employee {
