@@ -1,0 +1,144 @@
+/* Layout styles */
+.team-layout {
+    min-height: 100vh;
+  }
+  
+  .team-header {
+      background: url('../../assets/ourteam.jpg') no-repeat center center;
+      background-size: cover;
+      position: relative;
+      color: white;
+      padding: 40px 20px;
+      text-align: center;
+      height: 370px;
+  }
+    
+  .team-header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(16, 81, 95, 0.65); /* เพิ่ม overlay สีฟ้าพร้อมปรับความโปร่งแสง */
+      z-index: 1;
+  }
+  
+  .team-title {
+      position: relative; /* ทำให้เนื้อหาอยู่ด้านหน้า overlay */
+      z-index: 2;
+      text-align: left; /* จัดข้อความให้อยู่ทางด้านซ้าย */
+      padding-left: 20px; /* เพิ่มระยะห่างจากขอบซ้าย */
+  }
+    
+  .team-title h1 {
+    font-size: 64px;
+    font-family: "Bree Serif", serif;
+    margin-bottom: 10px;
+    margin-top: 90px;
+    margin-left: 50px;
+  }
+  
+  .team-title p {
+    font-size: 24px;
+    font-family: "Bree Serif", serif;
+    line-height: 1.6;
+    margin-left: 50px;
+  }
+  
+  .team-content {
+    padding: 20px 50px;
+  }
+  
+  .team-info {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+  
+  .team-info-icon {
+    font-size: 48px;
+    margin-right: 10px;
+  }
+  
+  .team-info-count {
+    font-size: 48px;
+    margin-right: 10px;
+  }
+  
+  .add-btn {
+    margin-left: 10px;
+  }
+  
+  .search-bar {
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  .search-input {
+    max-width: 500px;
+    width: 100%;
+  }
+  
+  .team-cards {
+    margin-top: 20px;
+  }
+  
+  .team-card {
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  
+  .card-image {
+      height: 200px;
+      background-size: cover;
+      background-position: center;
+      border-radius: 10px 10px 0 0;
+      cursor: pointer;
+  }
+    
+  
+  .card-meta {
+    text-align: center;
+  }
+  
+  .show-all-container {
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  .team-footer {
+    background: #10515F;
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+  }
+  
+  .footer-content {
+    font-size: 24px;
+    font-family: "Bree Serif", serif;
+  }
+  
+  /* Scroll to Top Button */
+  .scroll-to-top-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  }
+  
+  /* เพิ่มใน TeamPage.css */
+  .ant-modal {
+      border-radius: 10px;
+    }
+    
+    .ant-modal-title {
+      font-family: "Bree Serif", serif;
+    }
+    
+    .ant-modal-body {
+      font-size: 16px;
+    }
+    

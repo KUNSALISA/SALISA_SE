@@ -1,60 +1,7 @@
-// import React from "react";
-// import { Layout, Menu, Avatar } from "antd";
-// import { UserOutlined } from "@ant-design/icons";
-// import { Link } from "react-router-dom";
-// import "./Dash.css";
-
-// const { Header, Content } = Layout;
-
-// const ManagerPage: React.FC = () => {
-//   const avatar = localStorage.getItem("avatar");
-
-//   return (
-//     <Layout className="layout">
-//       <Header className="header">
-//         <div className="logo">
-//           <img src="/logo.png" alt="Logo" className="logo-image" />
-//           <span className="logo-text">WAREHOUSE</span>
-//         </div>
-//         <Menu theme="dark" mode="horizontal" className="menu">
-//           <Menu.Item key="1">
-//             <Link to="/manager">Home</Link>
-//           </Menu.Item>
-//           <Menu.Item key="2">
-//             <Link to="/employee">Employee</Link>
-//           </Menu.Item>
-//           <Menu.Item key="3">
-//             <Link to="/customer">Customer</Link>
-//           </Menu.Item>
-//         </Menu>
-//         <div className="avatar-section">
-//           {avatar ? (
-//             <Avatar src={avatar} size="large" />
-//           ) : (
-//             <Avatar icon={<UserOutlined />} size="large" />
-//           )}
-//         </div>
-//       </Header>
-//       <Content className="content">
-//         <div className="search-section">
-//           <input type="text" placeholder="Search" className="search-input" />
-//           <button className="search-button">
-//             <span role="img" aria-label="search">
-//               🔍
-//             </span>
-//           </button>
-//         </div>
-//       </Content>
-//     </Layout>
-//   );
-// };
-
-// export default ManagerPage;
-
 import React, { useState, useEffect } from "react";
 import {Layout, Card, Input, Button, Row, Col, Modal, Form, Select, DatePicker } from "antd";
 import {UserOutlined, SearchOutlined, UpOutlined, PlusOutlined } from "@ant-design/icons";
-import "./Dash.css";
+import "./Employee.css";
 
 const { Header, Footer, Content } = Layout;
 const { Option } = Select;

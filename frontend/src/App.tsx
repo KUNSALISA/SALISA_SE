@@ -58,7 +58,7 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import SharedLayout from "../src/components/Layout";
 import LoginPage from "../src/page/login/Login";
-import EmployeePage from "./pages/EmployeePage";
+import EmployeePage from "./page/employee/Employee";
 import CustomerPage from "./pages/CustomerPage";
 import Dashboard from "./pages/Dashboard";
 import ManagerPage from "../src/page/dash/Dash";

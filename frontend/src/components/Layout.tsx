@@ -1,8 +1,8 @@
 import React from "react";
-import { Link, Outlet } from "react-router-dom";
-import { Layout, Menu, Avatar, Dropdown } from "antd";
+import { Link, Outlet, useNavigate } from "react-router-dom";
+import { Layout, Menu, Avatar, Button } from "antd";
 import { UserOutlined, LogoutOutlined } from "@ant-design/icons";
-import "./SharedLayout.css";
+import "./Layout.css";
 import logoc from "../assets/Logocat.png";
 
 const { Header, Content } = Layout;
@@ -11,28 +11,15 @@ const SharedLayout: React.FC = () => {
   const avatar = localStorage.getItem("avatar");
   const firstName = localStorage.getItem("e_firstname");
   const lastName = localStorage.getItem("e_lastname");
+  const navigate = useNavigate();
 
   const handleLogout = () => {
     localStorage.removeItem("e_firstname");
     localStorage.removeItem("e_lastname");
     localStorage.removeItem("avatar");
     localStorage.removeItem("isLoggedIn");
-    window.location.href = "/";
+    navigate("/");
   };
-
-  const dropdownMenu = (
-    <Menu>
-      <Menu.Item key="1">
-        <span style={{ fontWeight: "bold" }}>
-          {firstName || "Unknown"} {lastName || "User"}
-        </span>
-      </Menu.Item>
-      <Menu.Divider />
-      <Menu.Item key="2" onClick={handleLogout} icon={<LogoutOutlined />}>
-        Log out
-      </Menu.Item>
-    </Menu>
-  );
 
   return (
     <Layout className="layout">
@@ -53,14 +40,22 @@ const SharedLayout: React.FC = () => {
           </Menu.Item>
         </Menu>
         <div className="avatar-section">
-          <Dropdown overlay={dropdownMenu} placement="bottomRight">
-            <Avatar
-              src={avatar}
-              size="large"
-              icon={!avatar && <UserOutlined />}
-              style={{ cursor: "pointer" }}
-            />
-          </Dropdown>
+          <Avatar
+            src={avatar}
+            size="large"
+            icon={!avatar && <UserOutlined />}
+          />
+          <span className="user-name">
+            {firstName} {lastName}
+          </span>
+
+          <Button
+            icon={<LogoutOutlined />}
+            type="link"
+            onClick={handleLogout}
+            className="logout-button"
+            style={{ color: "white" }}
+          />
         </div>
       </Header>
       <Content className="content">
