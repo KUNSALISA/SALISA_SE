@@ -10,8 +10,11 @@ export interface EmployeeInterface {
 	StartDate?: string;
 	AccessLevel?: string;
 	GenderID?: number;
+	Gender?: GendersInterface;
 	PositionID?: string;
+	Position?: PositionsInterface;
 	WarehouseID?: string;
+	Warehouse?: WarehousesInterface;
   }
 
 export interface CustomerInterface {
@@ -28,16 +31,16 @@ export interface CustomerInterface {
 
 export interface GendersInterface {
     ID?: number;
-    Gender?: string;
+    Gender: string;
   }
 
 export interface PositionsInterface {
     ID?: number;
-    Position?: string;
+    Position: string;
   }
 
 export interface WarehousesInterface {
     ID?: number;
-    Warehouse_name?: string;
+    Warehouse_name: string;
   }
   
