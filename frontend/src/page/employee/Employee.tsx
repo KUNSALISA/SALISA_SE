@@ -193,10 +193,6 @@ const Employee: React.FC = () => {
           )}
         </Modal>
       </Content>
-
-      <Footer className="team-footer">
-        <div className="footer-content">support@warehouse.com</div>
-      </Footer>
     </Layout>
   );
 };

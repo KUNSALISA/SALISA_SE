@@ -209,10 +209,6 @@ const TeamPage: React.FC = () => {
           )}
         </Modal>
       </Content>
-
-      <Footer className="team-footer">
-        <div className="footer-content">About</div>
-      </Footer>
     </Layout>
   );
 };
