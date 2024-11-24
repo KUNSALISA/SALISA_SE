@@ -146,7 +146,7 @@ const Employee: React.FC = () => {
             shape="circle"
             icon={<UpOutlined />}
             onClick={scrollToTop}
-            className="scroll-to-top-btn"
+            className="scroll-to-top-btn-em"
           />
         )}
 

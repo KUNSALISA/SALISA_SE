@@ -145,12 +145,12 @@ const Employee: React.FC = () => {
             shape="circle"
             icon={<UpOutlined />}
             onClick={scrollToTop}
-            className="scroll-to-top-btn"
+            className="scroll-to-top-btn-cus"
           />
         )}
 
         <Modal
-          title="Add New Employee"
+          title="Add New Customer"
           visible={isAddModalVisible}
           onCancel={closeAddModal}
           footer={null}

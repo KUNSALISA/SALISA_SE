@@ -57,8 +57,11 @@
 }
 
 .avatar-section .ant-avatar {
-  width: 60px;  
+  object-fit: cover;
+  width: 55px;  
   height: auto;
+  border-radius: 8px;
+  overflow: hidden;
 }
 
 .avatar-section .user-name {
@@ -71,16 +74,17 @@
   text-overflow: ellipsis; /* ถ้าชื่อยาวเกินให้แสดง '...' */
 }
 
-.logout-button {
-  margin-left: 20px;
-  font-size: 18px;
-  transition: color 0.3s, transform 0.3s;
+.logout-icon {
+  width: 36px; 
+  height: auto;
+  transition: transform 0.3s, filter 0.3s;
 }
 
-.logout-button:hover {
-  color: red; 
+.logout-icon:hover {
   transform: scale(1.7); 
+  filter: brightness(0.8); 
 }
+
 
   .content {
     flex: 1;

@@ -50,12 +50,17 @@ const SharedLayout: React.FC = () => {
           </span>
 
           <Button
-            icon={<LogoutOutlined />}
             type="link"
             onClick={handleLogout}
             className="logout-button"
             style={{ color: "white" }}
+          >
+          <img 
+            src="../../src/assets/close.png" 
+            alt="Logout" 
+            className="logout-icon"
           />
+          </Button>
         </div>
       </Header>
       <Content className="content">

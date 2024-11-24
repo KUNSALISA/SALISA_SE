@@ -121,10 +121,10 @@
     margin-top: 20px;
   }
  
-  .scroll-to-top-btn {
+  .scroll-to-top-btn-cus {
     position: fixed;
-    bottom: 20px;
-    right: 20px;
+    bottom: 90px;
+    right: 25px;
     z-index: 1000;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
   }
