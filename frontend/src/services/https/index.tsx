@@ -84,12 +84,56 @@ async function DeleteEmployeeById(id: string) {
 
 }
 
+//ยังไม่เขียน controller
 
-async function CreateEmployee(data: EmployeeInterface) {
+// async function CreateEmployee(data: EmployeeInterface) {
+
+//   return await axios
+
+//     .post(`${apiUrl}/signup`, data, requestOptions)
+//     .then((res) => res)
+//     .catch((e) => e.response);
+
+// }
+
+async function GetAllCustomers() {
 
   return await axios
 
-    .post(`${apiUrl}/signup`, data, requestOptions)
+    .get(`${apiUrl}/customers`, requestOptions)
+    .then((res) => res)
+    .catch((e) => e.response);
+
+}
+
+
+async function GetCustomersById(id: string) {
+
+  return await axios
+
+    .get(`${apiUrl}/customer/${id}`, requestOptions)
+    .then((res) => res)
+    .catch((e) => e.response);
+
+}
+
+
+async function UpdateCustomersById(id: string, data: EmployeeInterface) {
+
+  return await axios
+
+    .put(`${apiUrl}/customer/${id}`, data, requestOptions)
+    .then((res) => res)
+    .catch((e) => e.response);
+
+}
+
+
+async function DeleteCustomersById(id: string) {
+
+  return await axios
+
+    .delete(`${apiUrl}/customer/${id}`, requestOptions)
     .then((res) => res)
     .catch((e) => e.response);
 
@@ -104,7 +148,10 @@ export {
   GetEmployeesById,
   UpdateEmployeeById,
   DeleteEmployeeById,
-  CreateEmployee,
+  GetAllCustomers,
+  GetCustomersById,
+  UpdateCustomersById,
+  DeleteCustomersById,
 
 };
 
