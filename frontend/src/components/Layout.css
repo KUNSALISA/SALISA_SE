@@ -87,3 +87,14 @@
     background-color: #f0f2f5; 
   }
   
+  .footer {
+    text-align: center;
+    background: rgba(16, 81, 95, 1);
+    color: white;
+    padding: 20px 0;
+  }
+  
+  .footer-content {
+    font-size: 16px;
+  }
+  

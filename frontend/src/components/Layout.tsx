@@ -5,7 +5,7 @@ import { UserOutlined, LogoutOutlined } from "@ant-design/icons";
 import "./Layout.css";
 import logoc from "../assets/Logocat.png";
 
-const { Header, Content } = Layout;
+const { Header, Content, Footer } = Layout;
 
 const SharedLayout: React.FC = () => {
   const avatar = localStorage.getItem("avatar");
@@ -61,6 +61,9 @@ const SharedLayout: React.FC = () => {
       <Content className="content">
         <Outlet />
       </Content>
+      <Footer className="footer">
+        <div className="footer-content">support@warehouse.com</div>
+      </Footer>
     </Layout>
   );
 };
