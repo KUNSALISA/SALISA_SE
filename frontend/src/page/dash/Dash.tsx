@@ -149,10 +149,12 @@ const TeamPage: React.FC = () => {
         </Row>
 
         {!showAll && filteredMembers.length > 8 && (
-          <div className="show-all-container">
-            <Button type="primary" onClick={() => setShowAll(true)}>
-              Show All
-            </Button>
+          <div className="show-all-container" onClick={() => setShowAll(true)}>
+            <img 
+              src="../../../src/assets/down-arrows.png" 
+              alt="Logout" 
+              className="logout-icon-1"
+            />
           </div>
         )}
 

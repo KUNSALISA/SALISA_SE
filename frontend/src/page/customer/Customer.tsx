@@ -132,10 +132,12 @@ const Employee: React.FC = () => {
         </Row>
 
         {!showAll && filteredCustomers.length > 8 && (
-          <div className="show-all-container">
-            <Button type="primary" onClick={() => setShowAll(true)}>
-              Customer All
-            </Button>
+          <div className="show-all-container" onClick={() => setShowAll(true)}>
+            <img 
+              src="../../../src/assets/down-arrows.png" 
+              alt="drop" 
+              className="logout-icon-drop"
+            />
           </div>
         )}
 

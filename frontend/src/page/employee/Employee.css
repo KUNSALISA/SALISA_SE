@@ -117,7 +117,30 @@
   
   .show-all-container {
     text-align: center;
+    width: 400px;
     margin-top: 20px;
+    margin-left: 498.5px;
+    background-color: #FF7236; 
+    padding: 10px 20px; 
+    border-radius: 8px; 
+    cursor: pointer;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1), 0px -2px 4px rgba(255, 255, 255, 0.3); 
+    transition: transform 0.3s ease, box-shadow 0.3s ease; 
+  }
+  
+  .show-all-container:hover {
+    transform: translateY(-2px);
+    box-shadow: 0px -4px 6px rgba(255, 255, 255, 0.4); 
+  }
+
+  .logout-icon-drop {
+    width: 24px; 
+    height: auto;
+    transition: transform 0.3s, filter 0.3s;
+  }
+  .logout-icon-drop:hover {
+    transform: scale(1); 
+    filter: brightness(0.8); 
   }
  
   .scroll-to-top-btn-em {
