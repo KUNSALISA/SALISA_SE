@@ -7,7 +7,7 @@ import "./Employee.css";
 
 const { Header, Footer, Content } = Layout;
 
-const TeamPage: React.FC = () => {
+const Employee: React.FC = () => {
   const [employees, setEmployees] = useState<EmployeeInterface[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [showAll, setShowAll] = useState(false);
@@ -200,4 +200,4 @@ const TeamPage: React.FC = () => {
   );
 };
 
-export default TeamPage;
+export default Employee;
