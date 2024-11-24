@@ -29,7 +29,7 @@ func GetEmployees(c *gin.Context) {
 	var employees entity.Employee
 	db := config.DB()
 
-	results := db.Preload("Gender").Preload("Positions").First(&employees, ID)
+	results := db.Preload("Gender").Preload("Positions").Preload("Warehouse").First(&employees, ID)
 	if results.Error != nil {
 		c.JSON(http.StatusNotFound, gin.H{"error": results.Error.Error()})
 		return
@@ -73,7 +73,7 @@ func DeleteEmployees(c *gin.Context) {
 	ID := c.Param("id")
 
 	db := config.DB()
-	if tx := db.Exec("DELETE FROM users WHERE id = ?", ID); tx.RowsAffected == 0 {
+	if tx := db.Exec("DELETE FROM Employee WHERE id = ?", ID); tx.RowsAffected == 0 {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "id not found"})
 		return
 	}
