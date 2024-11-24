@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Layout, Card, Input, Button, Row, Col, Modal, Form } from "antd";
-import { UserOutlined, SearchOutlined, UpOutlined, PlusOutlined } from "@ant-design/icons";
+import {SearchOutlined, UpOutlined, PlusOutlined } from "@ant-design/icons";
 import {EmployeeInterface} from "../../interfaces/InterfaceFull";
 import {GetAllEmployees} from "../../services/https/index";
+import staff from "../../assets/staff.png"
 import "./Employee.css";
 
 const { Header, Footer, Content } = Layout;
@@ -88,7 +89,7 @@ const Employee: React.FC = () => {
 
       <Content className="team-content">
         <div className="team-info">
-          <UserOutlined className="team-info-icon" />
+          <img src={staff} alt="Team Icon" className="team-info-icon" />
           <span className="team-info-count">{employees.length}</span>
           <Button
             type="primary"
@@ -134,7 +135,7 @@ const Employee: React.FC = () => {
         {!showAll && filteredEmployees.length > 8 && (
           <div className="show-all-container">
             <Button type="primary" onClick={() => setShowAll(true)}>
-              Show All
+              Employee All
             </Button>
           </div>
         )}

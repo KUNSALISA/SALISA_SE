@@ -27,6 +27,7 @@ export interface CustomerInterface {
 	Password?: string;
 	Address?: string;
 	GenderID?: number;
+	Gender?: GendersInterface;
   }
 
 export interface GendersInterface {

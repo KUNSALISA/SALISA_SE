@@ -1,45 +1,46 @@
 import React, { useState, useEffect } from "react";
 import { Layout, Card, Input, Button, Row, Col, Modal, Form } from "antd";
-import { UserOutlined, SearchOutlined, UpOutlined, PlusOutlined } from "@ant-design/icons";
-import {EmployeeInterface} from "../../interfaces/InterfaceFull";
-import {GetAllEmployees} from "../../services/https/index";
+import { SearchOutlined, UpOutlined, PlusOutlined } from "@ant-design/icons";
+import {CustomerInterface} from "../../interfaces/InterfaceFull";
+import {GetAllCustomers} from "../../services/https/index";
+import rating from "../../assets/rating.png";
 import "./Customer.css";
 
 const { Header, Footer, Content } = Layout;
 
 const Employee: React.FC = () => {
-  const [employees, setEmployees] = useState<EmployeeInterface[]>([]);
+  const [customers, setCustomers] = useState<CustomerInterface[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [showAll, setShowAll] = useState(false);
   const [showScrollToTop, setShowScrollToTop] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const [selectedEmployee, setSelectedEmployee] = useState<EmployeeInterface | null>(null);
+  const [selectedCustomers, setSelectedCustomers] = useState<CustomerInterface | null>(null);
   const [isAddModalVisible, setIsAddModalVisible] = useState(false);
   const [form] = Form.useForm();
 
-  const getEmployees = async () => {
-    let res = await GetAllEmployees();
+  const getcustomers = async () => {
+    let res = await GetAllCustomers();
     console.log("API Response:", res);
     if (res) {
-      setEmployees(res.data);
+      setCustomers(res.data);
     }
   };
 
   useEffect(() => {
-    getEmployees();
+    getcustomers();
   }, []);
 
-  const filteredEmployees = employees.filter(
-    (employee) =>
-      employee.E_FirstName?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      employee.E_LastName?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      employee.Position?.Position.toLowerCase().includes(searchQuery.toLowerCase())
+  const filteredCustomers = customers.filter(
+    (customer) =>
+      customer.FirstName?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      customer.LastName?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      customer.Number?.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
-  const displayedEmployees = showAll ? filteredEmployees : filteredEmployees.slice(0, 8);
+  const displayedCustomers = showAll ? filteredCustomers : filteredCustomers.slice(0, 8);
 
   useEffect(() => {
-    const handleScroll = () => {
+    const handleScroll = () => { 
       setShowScrollToTop(window.scrollY > 200);
     };
     window.addEventListener("scroll", handleScroll);
@@ -50,14 +51,14 @@ const Employee: React.FC = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  const showModal = (employee: EmployeeInterface) => {
-    setSelectedEmployee(employee);
+  const showModal = (customer: CustomerInterface) => {
+    setSelectedCustomers(customer);
     setIsModalVisible(true);
   };
 
   const closeModal = () => {
     setIsModalVisible(false);
-    setSelectedEmployee(null);
+    setSelectedCustomers(null);
   };
 
   const showAddModal = () => {
@@ -70,7 +71,7 @@ const Employee: React.FC = () => {
   };
 
   const handleAddEmployee = (values: any) => {
-    console.log("New Employee Data:", values);
+    console.log("New Customer Data:", values);
     closeAddModal();
   };
 
@@ -87,8 +88,8 @@ const Employee: React.FC = () => {
 
       <Content className="team-content">
         <div className="team-info">
-          <UserOutlined className="team-info-icon" />
-          <span className="team-info-count">{employees.length}</span>
+          <img src={rating} alt="Cus Icon" className="customer-info-icon" />
+          <span className="team-info-count-cus">{customers.length}</span>
           <Button
             type="primary"
             icon={<PlusOutlined />}
@@ -99,7 +100,7 @@ const Employee: React.FC = () => {
 
         <div className="search-bar">
           <Input
-            placeholder="Search by name or position"
+            placeholder="Search by name or number"
             suffix={<SearchOutlined />}
             className="search-input"
             value={searchQuery}
@@ -108,21 +109,21 @@ const Employee: React.FC = () => {
         </div>
 
         <Row gutter={[24, 24]} className="team-cards">
-          {displayedEmployees.map((employee) => (
-            <Col span={6} key={employee.ID}>
+          {displayedCustomers.map((customer) => (
+            <Col span={6} key={customer.ID}>
               <Card
                 className="team-card"
                 cover={
                   <div
                     className="card-image"
-                    style={{ backgroundImage: `url(${employee.Avatar})` }}
-                    onClick={() => showModal(employee)}
+                    style={{ backgroundImage: `url(${customer.Avatar})` }}
+                    onClick={() => showModal(customer)}
                   />
                 }
               >
                 <Card.Meta
-                  title={`${employee.E_FirstName} ${employee.E_LastName}`}
-                  description={employee.Position?.Position}
+                  title={`${customer.FirstName} ${customer.LastName}`}
+                  description={customer.Number}
                   className="card-meta"
                 />
               </Card>
@@ -130,10 +131,10 @@ const Employee: React.FC = () => {
           ))}
         </Row>
 
-        {!showAll && filteredEmployees.length > 8 && (
+        {!showAll && filteredCustomers.length > 8 && (
           <div className="show-all-container">
             <Button type="primary" onClick={() => setShowAll(true)}>
-              Show All
+              Customer All
             </Button>
           </div>
         )}
@@ -178,14 +179,14 @@ const Employee: React.FC = () => {
             </Button>,
           ]}
         >
-          {selectedEmployee && (
+          {selectedCustomers && (
             <>
               <p>
-                <strong>Name:</strong> {selectedEmployee.E_FirstName}{" "}
-                {selectedEmployee.E_LastName}
+                <strong>Name:</strong> {selectedCustomers.FirstName}{" "}
+                {selectedCustomers.LastName}
               </p>
               <p>
-                <strong>Position:</strong> {selectedEmployee.Position?.Position}
+                <strong>Number:</strong> {selectedCustomers.Number}
               </p>
             </>
           )}

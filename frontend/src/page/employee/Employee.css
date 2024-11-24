@@ -59,11 +59,13 @@
   .team-info-icon {
     font-size: 48px;
     margin-right: 10px;
+    width: 90px;
+    object-fit: contain;
   }
   
   .team-info-count {
     font-size: 48px;
-    margin-right: 10px;
+    margin: 20px;
   }
   
   .add-btn {
