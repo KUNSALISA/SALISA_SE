@@ -66,8 +66,6 @@ func SetupDatabase() {
 	cPassword, _ := HashPassword("c123456")
 	dPassword, _ := HashPassword("d123456")
 
-	startDate := time.Now()
-
 	uploadPath := "./uploads/avatars/"
 	if err := os.MkdirAll(uploadPath, os.ModePerm); err != nil {
 		log.Fatalf("Failed to create upload directory: %v", err)
@@ -91,7 +89,7 @@ func SetupDatabase() {
 			Password:    managerPassword,
 			Avatar:      "/uploads/avatars/" + defaultAvatar,
 			Address:     "123 Main St",
-			StartDate:   startDate,
+			StartDate:   time.Date(2023, 10, 5, 9, 45, 0, 0, time.UTC),
 			AccessLevel: "Manager",
 			GenderID:    GenderMale.ID,
 			PositionID:  positionMap["Manager"],
@@ -105,7 +103,7 @@ func SetupDatabase() {
 			Password:    aPassword,
 			Avatar:      "/uploads/avatars/" + defaultAvatar,
 			Address:     "456 Elm St",
-			StartDate:   startDate,
+			StartDate:   time.Date(2023, 10, 5, 9, 45, 0, 0, time.UTC),
 			AccessLevel: "A",
 			GenderID:    GenderFemale.ID,
 			PositionID:  positionMap["A"],
@@ -119,7 +117,7 @@ func SetupDatabase() {
 			Password:    bPassword,
 			Avatar:      "/uploads/avatars/" + defaultAvatar,
 			Address:     "789 Pine St",
-			StartDate:   startDate,
+			StartDate:   time.Date(2023, 10, 5, 9, 45, 0, 0, time.UTC),
 			AccessLevel: "B",
 			GenderID:    GenderFemale.ID,
 			PositionID:  positionMap["B"],
@@ -133,7 +131,7 @@ func SetupDatabase() {
 			Password:    cPassword,
 			Avatar:      "/uploads/avatars/" + defaultAvatar,
 			Address:     "321 Oak St",
-			StartDate:   startDate,
+			StartDate:   time.Date(2023, 10, 5, 9, 45, 0, 0, time.UTC),
 			AccessLevel: "C",
 			GenderID:    GenderMale.ID,
 			PositionID:  positionMap["C"],
@@ -147,7 +145,7 @@ func SetupDatabase() {
 			Password:    dPassword,
 			Avatar:      "/uploads/avatars/" + defaultAvatar,
 			Address:     "654 Maple St",
-			StartDate:   startDate,
+			StartDate:   time.Date(2023, 10, 5, 9, 45, 0, 0, time.UTC),
 			AccessLevel: "D",
 			GenderID:    GenderFemale.ID,
 			PositionID:  positionMap["D"],
