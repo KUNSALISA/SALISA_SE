@@ -22,7 +22,7 @@
   .logo-image {
     height: 60px;
     width: auto;
-    margin-left: 20px;
+    margin-left: 70px;
   }
   
   .logo-text {
@@ -49,6 +49,15 @@
     background: #ffffff; 
   }
 
+.avatar-s {
+    transition: transform 0.3s, filter 0.3s;
+  }
+  .avatar-s:hover {
+    margin-top: 30px;
+    transform: scale(1.7); 
+    filter: brightness(0.9); 
+  }
+
 .avatar-section {
   display: flex;
   align-items: center;
@@ -72,6 +81,15 @@
   white-space: nowrap; /* ป้องกันไม่ให้ชื่อถูกตัด */
   overflow: hidden;
   text-overflow: ellipsis; /* ถ้าชื่อยาวเกินให้แสดง '...' */
+}
+
+.user-name {
+  transition: transform 0.3s;
+}
+.user-name:hover {
+  margin-top: 10px;
+  margin-left: 70px;
+  transform: scale(1.3); 
 }
 
 .logout-icon {
@@ -101,4 +119,41 @@
   .footer-content {
     font-size: 16px;
   }
+
+  .menu-toggle-gif {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    cursor: pointer;
+    width: 35px; 
+    height: auto; 
+    z-index: 1000; /* เพื่อให้แสดงอยู่ด้านบน */
+    border-radius: 10%;
+    margin-top: 14px;
+    margin-left: 10px;
+  }  
+  
+  .drawer-menu .ant-drawer-title {
+    font-size: 20px; /* ขนาดตัวอักษร */
+    font-weight: bold; /* น้ำหนักตัวอักษร */
+    text-align: center; /* จัดข้อความให้อยู่กึ่งกลาง */
+  }
+  
+  .drawer-menu .ant-menu {
+    font-size: 16px; /* ขนาดตัวอักษรของเมนู */
+  }
+  
+  .drawer-menu .ant-menu-item {
+    padding: 12px 20px; /* ปรับระยะห่างในแต่ละรายการเมนู */
+  }
+  
+  .drawer-menu .ant-menu-item a {
+    color: #001529; /* สีลิงก์ของเมนู */
+    font-weight: 500; /* น้ำหนักของลิงก์ */
+  }
+  
+  .drawer-menu .ant-menu-item:hover {
+    background-color: #e6f7ff; /* สีพื้นหลังเมื่อ hover */
+  }
+  
   
