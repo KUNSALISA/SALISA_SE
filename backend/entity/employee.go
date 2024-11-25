@@ -10,7 +10,7 @@ type Employee struct {
 	gorm.Model
 	E_FirstName string    `gorm:"not null"`
 	E_LastName  string    `gorm:"not null"`
-	Avatar      string    `gorm:"type:longtext"`
+	Avatar      string    `gorm:"not null"`
 	Number      string    `gorm:"not null"`
 	Email       string    `gorm:"uniqueIndex;not null"`
 	Password    string    `gorm:"not null"`

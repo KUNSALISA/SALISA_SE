@@ -27,7 +27,7 @@ type (
 		Password string
 	}
 
-	signUp struct {
+	signUp_ struct {
 		E_FirstName string
 		E_LastName  string
 		Avatar      string
@@ -44,7 +44,7 @@ type (
 	}
 )
 
-func SignUpEmployees(c *gin.Context) {
+func SignUpEmployees_(c *gin.Context) {
 
 	var payload signUp
 

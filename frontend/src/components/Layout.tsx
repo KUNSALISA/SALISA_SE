@@ -41,7 +41,7 @@ const SharedLayout: React.FC = () => {
         </Menu>
         <div className="avatar-section">
           <Avatar
-            src={avatar}
+            src={avatar ? `http://localhost:8080${avatar}` : undefined}
             size="large"
             icon={!avatar && <UserOutlined />}
           />

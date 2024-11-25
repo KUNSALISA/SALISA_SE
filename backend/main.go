@@ -20,6 +20,9 @@ func main() {
 	r := gin.Default()
 	r.Use(CORSMiddleware())
 
+	// เสิร์ฟไฟล์ static สำหรับ avatar
+	r.Static("/uploads", "../backend/uploads")
+
 	// r.POST("/signup", controller.SignUpEmployees)
 	r.POST("/signin", controller.SignInEmployees)
 

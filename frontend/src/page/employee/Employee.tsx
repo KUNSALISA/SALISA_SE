@@ -117,7 +117,7 @@ const Employee: React.FC = () => {
                 cover={
                   <div
                     className="card-image"
-                    style={{ backgroundImage: `url(${employee.Avatar})` }}
+                    style={{ backgroundImage: `url(http://localhost:8080${employee.Avatar})` }}
                     onClick={() => showModal(employee)}
                   />
                 }
