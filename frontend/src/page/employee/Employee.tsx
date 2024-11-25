@@ -3,6 +3,7 @@ import { Layout, Card, Input, Button, Row, Col, Modal, Form } from "antd";
 import {SearchOutlined, UpOutlined, PlusOutlined } from "@ant-design/icons";
 import {EmployeeInterface} from "../../interfaces/InterfaceFull";
 import {GetAllEmployees} from "../../services/https/index";
+import dayjs from "dayjs";
 import staff from "../../assets/staff.png"
 import "./Employee.css";
 
@@ -168,7 +169,7 @@ const Employee: React.FC = () => {
         </Modal>
 
         <Modal
-          title="Employee Details"
+          title="Profile"
           visible={isModalVisible}
           onCancel={closeModal}
           footer={[
@@ -179,17 +180,64 @@ const Employee: React.FC = () => {
               Edit
             </Button>,
           ]}
+          width={800}
         >
-          {selectedEmployee && (
-            <>
-              <p>
-                <strong>Name:</strong> {selectedEmployee.E_FirstName}{" "}
-                {selectedEmployee.E_LastName}
-              </p>
-              <p>
-                <strong>Position:</strong> {selectedEmployee.Position?.Position}
-              </p>
-            </>
+          {(
+            selectedEmployee && (
+              <div style={{ display: "flex", alignItems: "flex-start", gap: "25px" }}>
+                <div>
+                  {selectedEmployee.Avatar ? (
+                    <img
+                      src={`http://localhost:8080${selectedEmployee.Avatar}`}
+                      alt="Employee Avatar"
+                      style={{ width: "auto", height: "300px", borderRadius: "10px", objectFit: "cover" }}
+                    />
+                  ) : (
+                    <div
+                      style={{
+                        width: "150px",
+                        height: "150px",
+                        borderRadius: "10px",
+                        backgroundColor: "#ccc",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                      }}
+                    >
+                      No Image
+                    </div>
+                  )}
+                </div>
+
+                <div>
+                  <p>
+                    <strong>Name: </strong> {selectedEmployee.E_FirstName} {selectedEmployee.E_LastName}
+                  </p>
+                  <p>
+                    <strong>Gender: </strong> {selectedEmployee.Gender?.Gender}
+                  </p>
+                  <p>
+                    <strong>Position: </strong> {selectedEmployee.Position?.Position}
+                  </p>
+                  <p>
+                    <strong>Warehouse: </strong> {selectedEmployee.Warehouse?.Warehouse_name}
+                  </p>
+                  <p>
+                    <strong>Phone Number: </strong> {selectedEmployee.Number}
+                  </p>
+                  <p>
+                    <strong>Email: </strong> {selectedEmployee.Email}
+                  </p>
+                  <p>
+                    <strong>Address: </strong> {selectedEmployee.Address}
+                  </p>
+                  <p>
+                    <strong>StartDate: </strong>{" "}
+                    {dayjs(selectedEmployee.StartDate).format("DD/MM/YYYY")}
+                  </p>
+                </div>
+              </div>
+            )
           )}
         </Modal>
       </Content>
