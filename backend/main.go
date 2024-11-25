@@ -30,6 +30,7 @@ func main() {
 	{
 		router.Use(middleware.Authorizes())
 		//Employee
+		router.POST("/signup_employee", controller.SignUpEmployees)
 		router.PUT("/user/:id", controller.UpdateEmployees)
 		router.GET("/users", controller.GetListEmployees)
 		router.GET("/user/:id", controller.GetEmployees)
@@ -41,7 +42,10 @@ func main() {
 		router.DELETE("/customer/:id", controller.DeleteCustomers)
 		//Gender
 		router.GET("/genders", controller.GetListGenders)
-
+		//Position
+		router.GET("/positions", controller.GetListPositions)
+		//Warehouse
+		router.GET("/warehouses", controller.GetListWarehouses)
 	}
 
 	r.GET("/", func(c *gin.Context) {

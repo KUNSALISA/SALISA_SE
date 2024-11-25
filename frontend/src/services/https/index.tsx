@@ -40,6 +40,26 @@ async function GetGender() {
 
 }
 
+async function GetPositions() {
+
+  return await axios
+
+    .get(`${apiUrl}/positions`, requestOptions)
+    .then((res) => res)
+    .catch((e) => e.response);
+
+}
+
+async function GetWarehouses() {
+
+  return await axios
+
+    .get(`${apiUrl}/warehouses`, requestOptions)
+    .then((res) => res)
+    .catch((e) => e.response);
+
+}
+
 
 async function GetAllEmployees() {
 
@@ -84,17 +104,15 @@ async function DeleteEmployeeById(id: string) {
 
 }
 
-//ยังไม่เขียน controller
+async function CreateEmployee(data: EmployeeInterface) {
 
-// async function CreateEmployee(data: EmployeeInterface) {
+  return await axios
 
-//   return await axios
+    .post(`${apiUrl}/signup_employee`, data, requestOptions)
+    .then((res) => res)
+    .catch((e) => e.response);
 
-//     .post(`${apiUrl}/signup`, data, requestOptions)
-//     .then((res) => res)
-//     .catch((e) => e.response);
-
-// }
+}
 
 async function GetAllCustomers() {
 
@@ -144,10 +162,13 @@ export {
 
   SignIn,
   GetGender,
+  GetPositions,
+  GetWarehouses,
   GetAllEmployees,
   GetEmployeesById,
   UpdateEmployeeById,
   DeleteEmployeeById,
+  CreateEmployee,
   GetAllCustomers,
   GetCustomersById,
   UpdateCustomersById,

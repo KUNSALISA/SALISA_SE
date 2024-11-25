@@ -6,7 +6,7 @@ import {GetAllEmployees} from "../../services/https/index";
 import staff from "../../assets/staff.png"
 import "./Employee.css";
 
-const { Header, Footer, Content } = Layout;
+const { Header, Content } = Layout;
 
 const Employee: React.FC = () => {
   const [employees, setEmployees] = useState<EmployeeInterface[]>([]);
@@ -155,7 +155,6 @@ const Employee: React.FC = () => {
           title="Add New Employee"
           visible={isAddModalVisible}
           onCancel={closeAddModal}
-          footer={null}
         >
           <Form form={form} layout="vertical" onFinish={handleAddEmployee}>
             <Form.Item
