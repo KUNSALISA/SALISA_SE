@@ -1,15 +1,22 @@
 import React, { useState, useEffect } from "react";
-import { Layout, Card, Input, Button, Row, Col, Modal, Form } from "antd";
-import { SearchOutlined, UpOutlined, PlusOutlined } from "@ant-design/icons";
-import {CustomerInterface} from "../../interfaces/InterfaceFull";
-import {GetAllCustomers} from "../../services/https/index";
+import { Layout, Card, Input, Button, Row, Col, Modal, Form, message, Select, Upload, Space } from "antd";
+import { SearchOutlined, UpOutlined, PlusOutlined, UploadOutlined } from "@ant-design/icons";
+import {CustomerInterface, GendersInterface} from "../../interfaces/InterfaceFull";
+import {GetAllCustomers, GetGender, CreateCustomer} from "../../services/https/index";
+import type { GetProp, UploadFile, UploadProps } from "antd";
+import ImgCrop from "antd-img-crop";
 import rating from "../../assets/rating.png";
 import "./Customer.css";
 
-const { Header, Footer, Content } = Layout;
+const { Header, Content } = Layout;
+const { Option } = Select;
+type FileType = Parameters<GetProp<UploadProps, "beforeUpload">>[0];
 
-const Employee: React.FC = () => {
+const Customer: React.FC = () => {
   const [customers, setCustomers] = useState<CustomerInterface[]>([]);
+  const [messageApi, contextHolder] = message.useMessage();
+  const [genders, setGenders] = useState<GendersInterface[]>([]);
+  const [fileList, setFileList] = useState<UploadFile[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [showAll, setShowAll] = useState(false);
   const [showScrollToTop, setShowScrollToTop] = useState(false);
@@ -20,15 +27,81 @@ const Employee: React.FC = () => {
 
   const getcustomers = async () => {
     let res = await GetAllCustomers();
-    console.log("API Response:", res);
     if (res) {
       setCustomers(res.data);
     }
   };
 
+  const getGender = async () => {
+    let res = await GetGender();
+    if (res && Array.isArray(res.data)) {
+      setGenders(res.data);
+    } 
+  };
+
   useEffect(() => {
     getcustomers();
+    getGender();
   }, []);
+
+  const onChange: UploadProps["onChange"] = ({ fileList: newFileList }) => {
+    setFileList(newFileList);
+  };
+
+  const onPreview = async (file: UploadFile) => {
+    let src = file.url as string;
+    if (!src) {
+      src = await new Promise((resolve) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file.originFileObj as FileType);
+        reader.onload = () => resolve(reader.result as string);
+      });
+    }
+    const image = new Image();
+    image.src = src;
+    const imgWindow = window.open(src);
+    imgWindow?.document.write(image.outerHTML);
+  };
+
+  const onFinish = async (values: CustomerInterface) => {
+    if (fileList.length === 0) {
+      messageApi.open({
+        type: "error",
+        content: "กรุณาอัปโหลดรูปประจำตัว!",
+      });
+      return;
+    }
+    
+    const avatarUrl = fileList[0].thumbUrl || fileList[0].url;
+    if (!avatarUrl) {
+      messageApi.open({
+        type: "error",
+        content: "ไม่สามารถอ่านไฟล์รูปได้!",
+      });
+      return;
+    }
+  
+    values.Avatar = avatarUrl;
+  
+    const res = await CreateCustomer(values);
+    if (res) {
+      messageApi.open({
+        type: "success",
+        content: "บันทึกข้อมูลสำเร็จ",
+      });
+      await getcustomers();
+      form.resetFields();
+      setFileList([]);
+      closeAddModal(); 
+    } else {
+      messageApi.open({
+        type: "error",
+        content: "เกิดข้อผิดพลาด!",
+      });
+    }
+  };
+  
+  
 
   const filteredCustomers = customers.filter(
     (customer) =>
@@ -68,11 +141,6 @@ const Employee: React.FC = () => {
   const closeAddModal = () => {
     setIsAddModalVisible(false);
     form.resetFields();
-  };
-
-  const handleAddEmployee = (values: any) => {
-    console.log("New Customer Data:", values);
-    closeAddModal();
   };
 
   return (
@@ -155,16 +223,103 @@ const Employee: React.FC = () => {
           title="Add New Customer"
           visible={isAddModalVisible}
           onCancel={closeAddModal}
-          footer={null}
+          footer={null} 
         >
-          <Form form={form} layout="vertical" onFinish={handleAddEmployee}>
-            <Form.Item
-              label="First Name"
-              name="firstName"
-              rules={[{ required: true, message: "Please enter first name" }]}
-            >
-              <Input />
-            </Form.Item>
+          <Form form={form} layout="vertical" onFinish={onFinish}>
+              <Form.Item
+                label="First Name"
+                name="FirstName"
+                rules={[{ required: true, message: "Please enter first name" }]}
+              >
+                <Input placeholder="Enter first name" />
+              </Form.Item>
+              <Form.Item
+                label="Last Name"
+                name="LastName"
+                rules={[{ required: true, message: "Please enter last name" }]}
+              >
+                <Input placeholder="Enter last name" />
+              </Form.Item>
+              <Form.Item
+                label="Gender"
+                name="GenderID"
+                rules={[{ required: true, message: "Please select a gender!" }]}
+              >
+                <Select allowClear placeholder="Select gender">
+                  {genders.map((item) => (
+                    <Option value={item.ID} key={item.Gender}>
+                      {item.Gender}
+                    </Option>
+                  ))}
+                </Select>
+              </Form.Item>
+              <Form.Item
+                label="Phone Number"
+                name="Number"
+                rules={[{ required: true, message: "Please enter Phone Number" }]}
+              >
+                <Input placeholder="Enter last name" />
+              </Form.Item>
+              <Form.Item
+                label="Email"
+                name="Email"
+                rules={[
+                  { required: true, type: "email", message: "Please enter a valid email!" },
+                ]}
+              >
+                <Input placeholder="Enter email" />
+              </Form.Item>
+              <Form.Item
+                label="Password"
+                name="Password"
+                rules={[{ required: true, message: "Please enter a password!" }]}
+              >
+                <Input.Password placeholder="Enter password" />
+              </Form.Item>
+              <Form.Item
+                label="Address"
+                name="Address"
+                rules={[{ required: true, message: "Please enter an address!" }]}
+              >
+                <Input.TextArea placeholder="Enter address" />
+              </Form.Item>
+              <Form.Item
+                label="Avatar"
+                name="Avatar"
+                valuePropName="fileList"
+              >
+                <ImgCrop rotationSlider>
+                  <Upload
+                    fileList={fileList}
+                    onChange={({ fileList: newFileList }) => {
+                      setFileList(newFileList.slice(-1)); 
+                    }}
+                    onPreview={onPreview}
+                    beforeUpload={(file) => {
+                      setFileList([file]); 
+                      return false; 
+                    }}
+                    maxCount={1}
+                    multiple={false}
+                    listType="picture-card"
+                  >
+                    {fileList.length < 1 && (
+                      <div>
+                        <PlusOutlined />
+                        <div style={{ marginTop: 8 }}>Upload</div>
+                      </div>
+                    )}
+                  </Upload>
+                </ImgCrop>
+              </Form.Item>
+              <Form.Item>
+                <Space>
+                  <Button onClick={closeAddModal}>Close</Button>
+                  <Button type="primary" htmlType="submit" icon={<PlusOutlined />}>
+                    Submit
+                  </Button>
+                </Space>
+              </Form.Item>
           </Form>
         </Modal>
 
@@ -198,4 +353,4 @@ const Employee: React.FC = () => {
   );
 };
 
-export default Employee;
+export default Customer;

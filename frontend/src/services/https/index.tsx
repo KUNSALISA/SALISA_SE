@@ -115,23 +115,14 @@ async function CreateEmployee(data: EmployeeInterface) {
 
 }
 
-async function CreateCustomer(data: CustomerInterface) {
-  const requestOptions = {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(data),
-  };
+async function CreateCustomer(data: EmployeeInterface) {
 
-  let res = await fetch(`${apiUrl}/customer`, requestOptions)
-    .then((res) => {
-      if (res.status == 201) {
-        return res.json();
-      } else {
-        return false;
-      }
-    });
+  return await axios
 
-  return res;
+    .post(`${apiUrl}/customer`, data, requestOptions)
+    .then((res) => res)
+    .catch((e) => e.response);
+
 }
 
 async function GetAllCustomers() {
