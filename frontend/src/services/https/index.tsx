@@ -104,6 +104,7 @@ async function DeleteEmployeeById(id: string) {
 
 }
 
+
 async function CreateEmployee(data: EmployeeInterface) {
 
   return await axios
@@ -112,6 +113,25 @@ async function CreateEmployee(data: EmployeeInterface) {
     .then((res) => res)
     .catch((e) => e.response);
 
+}
+
+async function CreateCustomer(data: CustomerInterface) {
+  const requestOptions = {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  };
+
+  let res = await fetch(`${apiUrl}/customer`, requestOptions)
+    .then((res) => {
+      if (res.status == 201) {
+        return res.json();
+      } else {
+        return false;
+      }
+    });
+
+  return res;
 }
 
 async function GetAllCustomers() {
@@ -169,6 +189,7 @@ export {
   UpdateEmployeeById,
   DeleteEmployeeById,
   CreateEmployee,
+  CreateCustomer,
   GetAllCustomers,
   GetCustomersById,
   UpdateCustomersById,
