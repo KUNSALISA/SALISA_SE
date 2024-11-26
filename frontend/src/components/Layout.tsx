@@ -158,6 +158,30 @@ const SharedLayout: React.FC = () => {
           <Menu.Item key="3">
             <Link to="/customer">Customer</Link>
           </Menu.Item>
+          <Menu.Item key="4">
+            <Link to="/warehouse">Warehouse</Link>
+          </Menu.Item>
+          <Menu.Item key="5">
+            <Link to="/count">Count</Link>
+          </Menu.Item>
+          <Menu.Item key="6">
+            <Link to="/products">Products</Link>
+          </Menu.Item>
+          <Menu.Item key="7">
+            <Link to="/transaction">Transaction</Link>
+          </Menu.Item>
+          <Menu.Item key="8">
+            <Link to="/supplier">Supplier</Link>
+          </Menu.Item>
+          <Menu.Item key="9">
+            <Link to="/location">Location</Link>
+          </Menu.Item>
+          <Menu.Item key="10">
+            <Link to="/order">Order</Link>
+          </Menu.Item>
+          <Menu.Item key="11">
+            <Link to="/shipment">Shipment</Link>
+          </Menu.Item>
         </Menu>
       </Drawer>
       <Content className="content">

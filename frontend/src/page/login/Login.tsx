@@ -105,7 +105,7 @@ function WarehouseLogin() {
       </div>
       {loading && (
         <div className="loading-overlay">
-          <img src={"../../../src/assets/warehouse.gif"} alt="Loading..." />
+          <img src={"../../../src/assets/loading.gif"} alt="Loading..." />
         </div>
       )}
     </div>

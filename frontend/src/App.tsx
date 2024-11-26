@@ -71,7 +71,6 @@ const App: React.FC = () => {
   return (
     <Router>
       <Routes>
-        {/* เส้นทางเข้าสู่ระบบ (ไม่ใช้ SharedLayout) */}
         <Route path="/" element={<LoginPage />} />
         
         {/* เส้นทางที่ใช้ SharedLayout */}
