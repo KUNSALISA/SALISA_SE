@@ -36,6 +36,7 @@ func main() {
 		router.GET("/user/:id", controller.GetEmployees)
 		router.DELETE("/user/:id", controller.DeleteEmployees)
 		//Customer
+		router.POST("/customer", controller.CreateCustomer)
 		router.PUT("/customer/:id", controller.UpdateCustomers)
 		router.GET("/customers", controller.GetListCustomers)
 		router.GET("/customer/:id", controller.GetCustomers)

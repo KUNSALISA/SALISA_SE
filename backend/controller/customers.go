@@ -8,6 +8,43 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+func CreateCustomer(c *gin.Context) {
+	var customer entity.Customer
+
+	if err := c.ShouldBindJSON(&customer); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+	db := config.DB()
+
+	var gender entity.Genders
+	db.First(&gender, customer.GenderID)
+	if gender.ID == 0 {
+		c.JSON(http.StatusNotFound, gin.H{"error": "gender not found"})
+		return
+	}
+
+	hashedPassword, _ := config.HashPassword(customer.Password)
+
+	cust := entity.Customer{
+		FirstName: customer.FirstName,
+		LastName:  customer.LastName, 
+		Avatar:   customer.Avatar, 
+		Number:   customer.Number, 
+		Email:     customer.Email,  
+		Password:  hashedPassword,
+		Address:  customer.Address,
+		GenderID:  customer.GenderID,
+		Gender:    gender, 
+	}
+	if err := db.Create(&cust).Error; err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	c.JSON(http.StatusCreated, gin.H{"message": "Created success", "data": cust})
+}
+
 func GetListCustomers(c *gin.Context) {
 
 	var customer []entity.Customer
