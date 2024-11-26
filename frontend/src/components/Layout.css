@@ -83,15 +83,6 @@
   text-overflow: ellipsis; /* ถ้าชื่อยาวเกินให้แสดง '...' */
 }
 
-.user-name {
-  transition: transform 0.3s;
-}
-.user-name:hover {
-  margin-top: 10px;
-  margin-left: 70px;
-  transform: scale(1.3); 
-}
-
 .logout-icon {
   width: 36px; 
   height: auto;
