@@ -324,7 +324,7 @@ const Customer: React.FC = () => {
         </Modal>
 
         <Modal
-          title="Employee Details"
+          title="Profile"
           visible={isModalVisible}
           onCancel={closeModal}
           footer={[
@@ -335,17 +335,61 @@ const Customer: React.FC = () => {
               Edit
             </Button>,
           ]}
+          width={800}
         >
           {selectedCustomers && (
-            <>
-              <p>
-                <strong>Name:</strong> {selectedCustomers.FirstName}{" "}
-                {selectedCustomers.LastName}
-              </p>
-              <p>
-                <strong>Number:</strong> {selectedCustomers.Number}
-              </p>
-            </>
+            <div style={{ display: "flex", alignItems: "flex-start", gap: "25px" }}>
+              <div>
+                {selectedCustomers.Avatar ? (
+                  <img
+                    src={`http://localhost:8080${selectedCustomers.Avatar}`} 
+                    alt="Customer Avatar"
+                    style={{
+                      width: "auto",
+                      height: "300px",
+                      borderRadius: "10px",
+                      objectFit: "cover",
+                    }}
+                    onError={(e) => {
+                      (e.target as HTMLImageElement).onerror = null;
+                      (e.target as HTMLImageElement).src = "https://via.placeholder.com/150"; 
+                    }}                    
+                  />
+                ) : (
+                  <div
+                    style={{
+                      width: "150px",
+                      height: "150px",
+                      borderRadius: "10px",
+                      backgroundColor: "#ccc",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                  >
+                    No Image
+                  </div>
+                )}
+              </div>
+
+              <div>
+                <p>
+                  <strong>Name: </strong> {selectedCustomers.FirstName} {selectedCustomers.LastName}
+                </p>
+                <p>
+                  <strong>Gender: </strong> {selectedCustomers.Gender?.Gender}
+                </p>
+                <p>
+                  <strong>Phone Number: </strong> {selectedCustomers.Number}
+                </p>
+                <p>
+                  <strong>Email: </strong> {selectedCustomers.Email}
+                </p>
+                <p>
+                  <strong>Address: </strong> {selectedCustomers.Address}
+                </p>
+              </div>
+            </div>
           )}
         </Modal>
       </Content>
