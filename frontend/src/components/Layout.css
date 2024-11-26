@@ -77,10 +77,10 @@
   color: white;
   margin-left: 10px;
   font-size: 16px;
-  min-width: 150px; /* ขยายพื้นที่สำหรับชื่อ */
-  white-space: nowrap; /* ป้องกันไม่ให้ชื่อถูกตัด */
+  min-width: 170px; 
+  white-space: nowrap; 
   overflow: hidden;
-  text-overflow: ellipsis; /* ถ้าชื่อยาวเกินให้แสดง '...' */
+  text-overflow: ellipsis; 
 }
 
 .logout-icon {
@@ -118,33 +118,56 @@
     cursor: pointer;
     width: 35px; 
     height: auto; 
-    z-index: 1000; /* เพื่อให้แสดงอยู่ด้านบน */
+    z-index: 1000; 
     border-radius: 10%;
     margin-top: 14px;
     margin-left: 10px;
   }  
   
-  .drawer-menu .ant-drawer-title {
-    font-size: 20px; /* ขนาดตัวอักษร */
-    font-weight: bold; /* น้ำหนักตัวอักษร */
-    text-align: center; /* จัดข้อความให้อยู่กึ่งกลาง */
-  }
-  
-  .drawer-menu .ant-menu {
-    font-size: 16px; /* ขนาดตัวอักษรของเมนู */
-  }
-  
   .drawer-menu .ant-menu-item {
-    padding: 12px 20px; /* ปรับระยะห่างในแต่ละรายการเมนู */
+    display: flex;
+    align-items: center;
+    gap: 20px; 
+    padding: 20px 20px;
+    background-color: white; 
+    font-weight: bold;
+    color: #FF7236; 
+    transition: all 0.3s ease; 
+    border-radius: 8px; 
+    margin-left: 35px;
   }
   
-  .drawer-menu .ant-menu-item a {
-    color: #001529; /* สีลิงก์ของเมนู */
-    font-weight: 500; /* น้ำหนักของลิงก์ */
+  .drawer-menu .ant-menu-item:hover,
+  .drawer-menu .ant-menu-item.ant-menu-item-selected {
+    background-color: #FF7236; /* พื้นหลังส้ม */
+    color: white; /* ตัวอักษรสีขาว */
   }
   
-  .drawer-menu .ant-menu-item:hover {
-    background-color: #e6f7ff; /* สีพื้นหลังเมื่อ hover */
+  .drawer-menu .ant-menu-item img {
+    transition: transform 0.3s ease; 
   }
   
+  .drawer-menu .ant-menu-item:hover img,
+  .drawer-menu .ant-menu-item.ant-menu-item-selected img {
+    transform: scale(1.2); /* ขยายไอคอนเมื่อ hover หรือ active */
+  }
+  
+  .drawer-menu .ant-menu-title {
+    margin-top: 10px;
+    margin-left: 105px; 
+    font-size: 24px; 
+    font-weight: bold; 
+    color: #000000; 
+    position: relative; 
+    animation: bounce-text 1s infinite; 
+  }
+  
+  @keyframes bounce-text {
+    0%, 100% {
+      transform: translateY(0); 
+    }
+    50% {
+      transform: translateY(-10px); 
+    }
+  }
   

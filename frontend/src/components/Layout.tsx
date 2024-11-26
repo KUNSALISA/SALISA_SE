@@ -76,7 +76,7 @@
 // export default SharedLayout;
 
 
-import React, { useState } from "react";
+import React, { useState  } from "react";
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import { Layout, Menu, Avatar, Button, Drawer } from "antd";
 import { UserOutlined} from "@ant-design/icons";
@@ -142,44 +142,44 @@ const SharedLayout: React.FC = () => {
         </div>
       </Header>
       <Drawer
-        title="Menu"
+        title={<div className="ant-menu-title">Menu</div>}
         placement="left"
         onClose={toggleDrawer}
         visible={drawerVisible}
         className="drawer-menu"
       >
         <Menu mode="vertical">
-          <Menu.Item key="1">
+          <Menu.Item key="1" icon={<img src="../../src/assets/building.png" alt="Home" style={{ width: 24 }} />}>
             <Link to="/manager">Home</Link>
           </Menu.Item>
-          <Menu.Item key="2">
+          <Menu.Item key="2" icon={<img src="../../src/assets/employees.png" alt="Employee" style={{ width: 24 }} />}>
             <Link to="/employee">Employee</Link>
           </Menu.Item>
-          <Menu.Item key="3">
+          <Menu.Item key="3" icon={<img src="../../src/assets/public-relation.png" alt="Customer" style={{ width: 24 }} />}>
             <Link to="/customer">Customer</Link>
           </Menu.Item>
-          <Menu.Item key="4">
+          <Menu.Item key="4" icon={<img src="../../src/assets/warehouse_menu.png" alt="Warehouse" style={{ width: 24 }} />}>
             <Link to="/warehouse">Warehouse</Link>
           </Menu.Item>
-          <Menu.Item key="5">
+          <Menu.Item key="5" icon={<img src="../../src/assets/calculator.png" alt="Count" style={{ width: 24 }} />}>
             <Link to="/count">Count</Link>
           </Menu.Item>
-          <Menu.Item key="6">
+          <Menu.Item key="6" icon={<img src="../../src/assets/box.png" alt="Products" style={{ width: 24 }} />}>
             <Link to="/products">Products</Link>
           </Menu.Item>
-          <Menu.Item key="7">
+          <Menu.Item key="7" icon={<img src="../../src/assets/transaction.png" alt="Transaction" style={{ width: 24 }} />}>
             <Link to="/transaction">Transaction</Link>
           </Menu.Item>
-          <Menu.Item key="8">
+          <Menu.Item key="8" icon={<img src="../../src/assets/supplier.png" alt="Supplier" style={{ width: 24 }} />}>
             <Link to="/supplier">Supplier</Link>
           </Menu.Item>
-          <Menu.Item key="9">
+          <Menu.Item key="9" icon={<img src="../../src/assets/zone-picking.png" alt="Location" style={{ width: 24 }} />}>
             <Link to="/location">Location</Link>
           </Menu.Item>
-          <Menu.Item key="10">
+          <Menu.Item key="10" icon={<img src="../../src/assets/completed-task.png" alt="Order" style={{ width: 24 }} />}>
             <Link to="/order">Order</Link>
           </Menu.Item>
-          <Menu.Item key="11">
+          <Menu.Item key="11" icon={<img src="../../src/assets/distribution.png" alt="Shipment" style={{ width: 24 }} />}>
             <Link to="/shipment">Shipment</Link>
           </Menu.Item>
         </Menu>
