@@ -139,8 +139,8 @@
   
   .drawer-menu .ant-menu-item:hover,
   .drawer-menu .ant-menu-item.ant-menu-item-selected {
-    background-color: #FF7236; /* พื้นหลังส้ม */
-    color: white; /* ตัวอักษรสีขาว */
+    background-color: #FF7236; 
+    color: white; 
   }
   
   .drawer-menu .ant-menu-item img {
