@@ -342,7 +342,7 @@ const Customer: React.FC = () => {
               <div>
                 {selectedCustomers.Avatar ? (
                   <img
-                    src={`http://localhost:8080${selectedCustomers.Avatar}`} 
+                    src={selectedCustomers.Avatar} 
                     alt="Customer Avatar"
                     style={{
                       width: "auto",
