@@ -16,7 +16,7 @@ type Employee struct {
 	Password    string    `gorm:"not null"`
 	Address     string    `gorm:"not null"`
 	StartDate   time.Time `gorm:"not null"`
-	AccessLevel string    `gorm:"not null"`
+	AccessLevel string    `gorm:"not null"` /////////ต้องมีรวบเป็น position เลย
 
 	GenderID    uint
 	Gender      Genders `gorm:"foriegnKey:GenderID"`
