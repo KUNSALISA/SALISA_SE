@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Layout, Card, Input, Button, Row, Col, Modal, Form, message, Select, Upload, Space } from "antd";
 import { SearchOutlined, UpOutlined, PlusOutlined, UploadOutlined } from "@ant-design/icons";
 import {CustomerInterface, GendersInterface} from "../../interfaces/InterfaceFull";
-import {GetAllCustomers, GetGender, CreateCustomer} from "../../services/https/index";
+import {GetAllCustomers, GetGender, CreateCustomer, UpdateCustomersById, DeleteCustomersById} from "../../services/https/index";
 import type { GetProp, UploadFile, UploadProps } from "antd";
 import ImgCrop from "antd-img-crop";
 import rating from "../../assets/rating.png";
@@ -23,6 +23,7 @@ const Customer: React.FC = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedCustomers, setSelectedCustomers] = useState<CustomerInterface | null>(null);
   const [isAddModalVisible, setIsAddModalVisible] = useState(false);
+  const [isEditModalVisible, setIsEditModalVisible] = useState(false);
   const [form] = Form.useForm();
 
   const getcustomers = async () => {
@@ -142,6 +143,61 @@ const Customer: React.FC = () => {
     setIsAddModalVisible(false);
     form.resetFields();
   };
+
+  const showEditModal = () => {
+    setIsEditModalVisible(true);
+  };
+  
+  const closeEditModal = () => {
+    setIsEditModalVisible(false);
+    form.resetFields();
+  };
+
+  const handleEditSubmit = async (values: CustomerInterface) => {
+    const res = await UpdateCustomersById(String(selectedCustomers?.ID), values); // Call API with selected customer ID
+    if (res && res.status === 200) {
+      messageApi.success("Customer updated successfully");
+      
+      // Update selected customer with new values
+      setSelectedCustomers((prev) => ({
+        ...prev,
+        ...values, // Merge updated values into the current customer object
+        Gender: genders.find((gender) => gender.ID === values.GenderID), // Map GenderID to Gender object
+      }));
+      
+      await getcustomers(); // Refresh the customer list
+      closeEditModal(); // Close the modal
+    } else {
+      const errorMessage = res?.data?.message || "Failed to update customer";
+      messageApi.error(errorMessage); // Show error message
+    }
+  }; 
+
+  const handleDeleteCustomer = () => {
+    Modal.confirm({
+      title: "Are you sure you want to delete this customer?",
+      content: "This action cannot be undone.",
+      okText: "Yes, Delete",
+      okType: "danger",
+      cancelText: "Cancel",
+      onOk: async () => {
+        const res = await DeleteCustomersById(String(selectedCustomers?.ID)); // Call API to delete customer
+        if (res && res.status === 200) {
+          messageApi.success("Customer deleted successfully");
+          await getcustomers(); // Refresh the customer list
+          closeEditModal(); // Close the modal
+          closeModal();
+        } else {
+          const errorMessage = res?.data?.message || "Failed to delete customer";
+          messageApi.error(errorMessage); // Show error message
+        }
+      },
+      onCancel: () => {
+        messageApi.info("Delete action canceled");
+      },
+    });
+  };
+   
 
   return (
     <Layout className="customer-layout">
@@ -324,16 +380,24 @@ const Customer: React.FC = () => {
         </Modal>
 
         <Modal
-          title="Profile"
+          title="Profile"  //ชื่อจั๋วหัวโปรไฟล์
           visible={isModalVisible}
           onCancel={closeModal}
           footer={[
             <Button key="close" onClick={closeModal}>
               Close
             </Button>,
-            <Button key="edit" type="primary">
-              Edit
-            </Button>,
+            <Button
+            key="edit"
+            type="primary"
+            onClick={() => {
+              form.setFieldsValue(selectedCustomers); // Pre-fill form with customer data
+              showEditModal();
+            }}
+            >
+              EDIT
+            </Button>
+            
           ]}
           width={800}
         >
@@ -391,6 +455,97 @@ const Customer: React.FC = () => {
               </div>
             </div>
           )}
+        </Modal>
+        <Modal
+          title="Edit Customer"
+          visible={isEditModalVisible}
+          onCancel={closeEditModal}
+          footer={null}
+        >
+          <Form form={form} layout="vertical" onFinish={handleEditSubmit}>
+            <Form.Item
+              label="First Name"
+              name="FirstName"
+              rules={[{ required: true, message: "Please enter first name" }]}
+            >
+              <Input placeholder="Enter first name" />
+            </Form.Item>
+            <Form.Item
+              label="Last Name"
+              name="LastName"
+              rules={[{ required: true, message: "Please enter last name" }]}
+            >
+              <Input placeholder="Enter last name" />
+            </Form.Item>
+            <Form.Item
+              label="Gender"
+              name="GenderID"
+              rules={[{ required: true, message: "Please select a gender!" }]}
+            >
+              <Select placeholder="Select gender">
+                {genders.map((item) => (
+                  <Option key={item.ID} value={item.ID}>
+                    {item.Gender}
+                  </Option>
+                ))}
+              </Select>
+            </Form.Item>
+            <Form.Item
+              label="Phone Number"
+              name="Number"
+              rules={[{ required: true, message: "Please enter phone number" }]}
+            >
+              <Input placeholder="Enter phone number" />
+            </Form.Item>
+            <Form.Item
+              label="Email"
+              name="Email"
+              rules={[{ required: true, type: "email", message: "Please enter a valid email!" }]}
+            >
+              <Input placeholder="Enter email" />
+            </Form.Item>
+            <Form.Item
+              label="Address"
+              name="Address"
+              rules={[{ required: true, message: "Please enter an address!" }]}
+            >
+              <Input.TextArea placeholder="Enter address" />
+            </Form.Item>
+            <Form.Item label="Avatar" name="Avatar" valuePropName="fileList">
+              <ImgCrop rotationSlider>
+                <Upload
+                  fileList={fileList}
+                  onChange={({ fileList: newFileList }) => {
+                    setFileList(newFileList.slice(-1));
+                  }}
+                  onPreview={onPreview}
+                  beforeUpload={(file) => {
+                    setFileList([file]);
+                    return false;
+                  }}
+                  maxCount={1}
+                  multiple={false}
+                  listType="picture-card"
+                >
+                  {fileList.length < 1 && (
+                    <div>
+                      <PlusOutlined />
+                      <div style={{ marginTop: 8 }}>Upload</div>
+                    </div>
+                  )}
+                </Upload>
+              </ImgCrop>
+            </Form.Item>
+            <Form.Item>
+              <Space style={{ float: "right" }}> {/* Align buttons to the right */}
+                <Button onClick={closeEditModal}>CANCEL</Button>
+                <Button danger onClick={handleDeleteCustomer}>DELETE</Button> {/* Confirmation prompt will be shown */}
+                <Button type="primary" htmlType="submit">
+                  SUBMIT
+                </Button>
+              </Space>
+            </Form.Item>
+          </Form>
         </Modal>
       </Content>
     </Layout>

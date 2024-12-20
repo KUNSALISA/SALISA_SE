@@ -114,8 +114,8 @@ async function CreateEmployee(data: EmployeeInterface) {
     .catch((e) => e.response);
 
 }
-
-async function CreateCustomer(data: EmployeeInterface) {
+//////////////////
+async function CreateCustomer(data: CustomerInterface) {
 
   return await axios
 
@@ -147,7 +147,7 @@ async function GetCustomersById(id: string) {
 }
 
 
-async function UpdateCustomersById(id: string, data: EmployeeInterface) {
+async function UpdateCustomersById(id: string, data: CustomerInterface) {
 
   return await axios
 
