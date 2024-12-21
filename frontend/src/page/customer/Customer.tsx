@@ -211,16 +211,19 @@ const Customer: React.FC = () => {
       </Header>
 
       <Content className="team-content">
-        <div className="team-info">
-          <img src={rating} alt="Cus Icon" className="customer-info-icon" />
-          <span className="team-info-count-cus">{customers.length}</span>
-          <Button
-            type="primary"
-            icon={<PlusOutlined />}
-            className="add-btn"
-            onClick={showAddModal}
-          />
-        </div>
+      <div className="team-info">
+        <img src={rating} alt="Cus Icon" className="customer-info-icon" />
+        <span className="team-info-count-cus">{customers.length}</span>
+        <Button
+          type="primary"
+          icon={<PlusOutlined />}
+          className="add-btn"
+          style={{ backgroundColor: "#FF7236", borderColor: "#FF7236" }} // กำหนดสีปุ่ม
+          onClick={showAddModal}
+        >
+          ADD
+        </Button>
+      </div>
 
         <div className="search-bar">
           <Input
@@ -276,7 +279,11 @@ const Customer: React.FC = () => {
         )}
 
         <Modal
-          title="Add New Customer"
+          title={
+            <div style={{ textAlign: "center", fontSize: "24px", fontWeight: "bold" }}>
+              Add New Customer
+            </div>
+          }
           visible={isAddModalVisible}
           onCancel={closeAddModal}
           footer={null} 
@@ -369,27 +376,34 @@ const Customer: React.FC = () => {
                 </ImgCrop>
               </Form.Item>
               <Form.Item>
-                <Space>
-                  <Button onClick={closeAddModal}>Close</Button>
-                  <Button type="primary" htmlType="submit" icon={<PlusOutlined />}>
-                    Submit
-                  </Button>
-                </Space>
+                <div style={{ display: "flex", justifyContent: "flex-end" }}> {/* ใช้ Flexbox */}
+                  <Space>
+                    <Button onClick={closeAddModal}>CLOSE</Button>
+                    <Button type="primary" htmlType="submit" icon={<PlusOutlined />}>
+                      SUBMIT
+                    </Button>
+                  </Space>
+                </div>
               </Form.Item>
           </Form>
         </Modal>
 
         <Modal
-          title="Profile"  //ชื่อจั๋วหัวโปรไฟล์
+          title={
+            <div style={{fontSize: "20px", fontWeight: "bold" }}>
+              Profile
+            </div>
+          }
           visible={isModalVisible}
           onCancel={closeModal}
           footer={[
             <Button key="close" onClick={closeModal}>
-              Close
+              CLOSE
             </Button>,
             <Button
             key="edit"
             type="primary"
+            style={{ backgroundColor: "#FF7236", borderColor: "#FF7236" }}
             onClick={() => {
               form.setFieldsValue(selectedCustomers); // Pre-fill form with customer data
               showEditModal();
@@ -457,7 +471,11 @@ const Customer: React.FC = () => {
           )}
         </Modal>
         <Modal
-          title="Edit Customer"
+          title={
+            <div style={{ textAlign: "center", fontSize: "24px", fontWeight: "bold" }}>
+              Edit Customer
+            </div>
+          }
           visible={isEditModalVisible}
           onCancel={closeEditModal}
           footer={null}
