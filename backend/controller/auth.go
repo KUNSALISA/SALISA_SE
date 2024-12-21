@@ -2,8 +2,6 @@
 package controller
 
 import (
-	"errors"
-
 	"net/http"
 
 	"time"
@@ -11,8 +9,6 @@ import (
 	"github.com/gin-gonic/gin"
 
 	"golang.org/x/crypto/bcrypt"
-
-	"gorm.io/gorm"
 
 	"github.com/KUNSALISA/SALISA_SE/config"
 
@@ -44,60 +40,60 @@ type (
 	}
 )
 
-func SignUpEmployees_(c *gin.Context) {
+// func SignUpEmployees_(c *gin.Context) {
 
-	var payload signUp
+// 	var payload signUp
 
-	if err := c.ShouldBindJSON(&payload); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-		return
-	}
+// 	if err := c.ShouldBindJSON(&payload); err != nil {
+// 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+// 		return
+// 	}
 
-	db := config.DB()
+// 	db := config.DB()
 
-	var userCheck entity.Employee
+// 	var userCheck entity.Employee
 
-	result := db.Where("email = ?", payload.Email).First(&userCheck)
-	if result.Error != nil && !errors.Is(result.Error, gorm.ErrRecordNotFound) {
+// 	result := db.Where("email = ?", payload.Email).First(&userCheck)
+// 	if result.Error != nil && !errors.Is(result.Error, gorm.ErrRecordNotFound) {
 
-		c.JSON(http.StatusInternalServerError, gin.H{"error": result.Error.Error()})
-		return
+// 		c.JSON(http.StatusInternalServerError, gin.H{"error": result.Error.Error()})
+// 		return
 
-	}
+// 	}
 
-	if userCheck.ID != 0 {
+// 	if userCheck.ID != 0 {
 
-		c.JSON(http.StatusConflict, gin.H{"error": "Email is already registered"})
-		return
+// 		c.JSON(http.StatusConflict, gin.H{"error": "Email is already registered"})
+// 		return
 
-	}
+// 	}
 
-	hashedPassword, _ := config.HashPassword(payload.Password)
-	user := entity.Employee{
+// 	hashedPassword, _ := config.HashPassword(payload.Password)
+// 	user := entity.Employee{
 
-		E_FirstName: payload.E_FirstName,
-		E_LastName:  payload.E_LastName,
-		Avatar:      payload.Avatar,
-		Number:      payload.Number,
-		Email:       payload.Email,
-		Password:    hashedPassword,
-		Address:     payload.Address,
-		StartDate:   payload.StartDate,
-		AccessLevel: payload.AccessLevel,
+// 		E_FirstName: payload.E_FirstName,
+// 		E_LastName:  payload.E_LastName,
+// 		Avatar:      payload.Avatar,
+// 		Number:      payload.Number,
+// 		Email:       payload.Email,
+// 		Password:    hashedPassword,
+// 		Address:     payload.Address,
+// 		StartDate:   payload.StartDate,
+// 		AccessLevel: payload.AccessLevel,
 
-		GenderID:    payload.GenderID,
-		PositionID:  payload.PositionID,
-		WarehouseID: payload.WarehouseID,
-	}
-	if err := db.Create(&user).Error; err != nil {
+// 		GenderID:    payload.GenderID,
+// 		PositionID:  payload.PositionID,
+// 		WarehouseID: payload.WarehouseID,
+// 	}
+// 	if err := db.Create(&user).Error; err != nil {
 
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-		return
+// 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+// 		return
 
-	}
-	c.JSON(http.StatusCreated, gin.H{"message": "Sign-up successful"})
+// 	}
+// 	c.JSON(http.StatusCreated, gin.H{"message": "Sign-up successful"})
 
-}
+// }
 
 func SignInEmployees(c *gin.Context) {
 	var payload Authen
@@ -135,10 +131,9 @@ func SignInEmployees(c *gin.Context) {
 		"token_type":   "Bearer",
 		"token":        signedToken,
 		"id":           user.ID,
-		"access_level": user.AccessLevel, 
-		"avatar":       user.Avatar, 
-		"e_firstname":       user.E_FirstName,
-		"e_lastname":       user.E_LastName,
+		"access_level": user.AccessLevel,
+		"avatar":       user.Avatar,
+		"e_firstname":  user.E_FirstName,
+		"e_lastname":   user.E_LastName,
 	})
 }
-	

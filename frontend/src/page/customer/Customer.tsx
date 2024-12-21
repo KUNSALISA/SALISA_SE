@@ -154,22 +154,21 @@ const Customer: React.FC = () => {
   };
 
   const handleEditSubmit = async (values: CustomerInterface) => {
-    const res = await UpdateCustomersById(String(selectedCustomers?.ID), values); // Call API with selected customer ID
+    const res = await UpdateCustomersById(String(selectedCustomers?.ID), values); 
     if (res && res.status === 200) {
       messageApi.success("Customer updated successfully");
       
-      // Update selected customer with new values
       setSelectedCustomers((prev) => ({
         ...prev,
-        ...values, // Merge updated values into the current customer object
-        Gender: genders.find((gender) => gender.ID === values.GenderID), // Map GenderID to Gender object
+        ...values, 
+        Gender: genders.find((gender) => gender.ID === values.GenderID), 
       }));
       
-      await getcustomers(); // Refresh the customer list
-      closeEditModal(); // Close the modal
+      await getcustomers(); 
+      closeEditModal(); 
     } else {
       const errorMessage = res?.data?.message || "Failed to update customer";
-      messageApi.error(errorMessage); // Show error message
+      messageApi.error(errorMessage); 
     }
   }; 
 
@@ -411,7 +410,6 @@ const Customer: React.FC = () => {
             >
               EDIT
             </Button>
-            
           ]}
           width={800}
         >
@@ -529,10 +527,11 @@ const Customer: React.FC = () => {
             >
               <Input.TextArea placeholder="Enter address" />
             </Form.Item>
-            <Form.Item label="Avatar" name="Avatar" valuePropName="fileList">
+{/* ยังแก้ไขรูปไม่ได้ */}
+            <Form.Item label="Avatar" name="Avatar" valuePropName="fileList">  
               <ImgCrop rotationSlider>
                 <Upload
-                  fileList={fileList}
+                  fileList={fileList} 
                   onChange={({ fileList: newFileList }) => {
                     setFileList(newFileList.slice(-1));
                   }}
