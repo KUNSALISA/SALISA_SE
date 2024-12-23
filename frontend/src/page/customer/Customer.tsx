@@ -18,7 +18,6 @@ const Customer: React.FC = () => {
   const [genders, setGenders] = useState<GendersInterface[]>([]);
   const [fileList, setFileList] = useState<UploadFile[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
-  const [showAll, setShowAll] = useState(false);
   const [showScrollToTop, setShowScrollToTop] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedCustomers, setSelectedCustomers] = useState<CustomerInterface | null>(null);
@@ -111,7 +110,7 @@ const Customer: React.FC = () => {
       customer.Number?.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
-  const displayedCustomers = showAll ? filteredCustomers : filteredCustomers.slice(0, 8);
+  const displayedCustomers = filteredCustomers;
 
   useEffect(() => {
     const handleScroll = () => { 
@@ -217,7 +216,7 @@ const Customer: React.FC = () => {
           type="primary"
           icon={<PlusOutlined />}
           className="add-btn"
-          style={{ backgroundColor: "#FF7236", borderColor: "#FF7236" }} // กำหนดสีปุ่ม
+          style={{ backgroundColor: "#FF7236", borderColor: "#FF7236" }} 
           onClick={showAddModal}
         >
           ADD
@@ -256,16 +255,6 @@ const Customer: React.FC = () => {
             </Col>
           ))}
         </Row>
-
-        {!showAll && filteredCustomers.length > 8 && (
-          <div className="show-all-container" onClick={() => setShowAll(true)}>
-            <img 
-              src="../../../src/assets/down-arrows.png" 
-              alt="drop" 
-              className="logout-icon-drop"
-            />
-          </div>
-        )}
 
         {showScrollToTop && (
           <Button
