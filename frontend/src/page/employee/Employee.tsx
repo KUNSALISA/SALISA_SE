@@ -20,7 +20,6 @@ const Employee: React.FC = () => {
   const [warehouses, setWarehouses] = useState<WarehousesInterface[]>([]);
   const [messageApi, contextHolder] = message.useMessage();
   const [searchQuery, setSearchQuery] = useState("");
-  const [showAll, setShowAll] = useState(false);
   const [showScrollToTop, setShowScrollToTop] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [fileList, setFileList] = useState<UploadFile[]>([]);
@@ -76,7 +75,7 @@ const Employee: React.FC = () => {
       employee.Position?.Position.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
-  const displayedEmployees = showAll ? filteredEmployees : filteredEmployees.slice(0, 8);
+  const displayedEmployees = filteredEmployees;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -119,7 +118,6 @@ const Employee: React.FC = () => {
   };
 
   const onFinish = async (values: EmployeeInterface) => {
-    // ตรวจสอบว่ามีการอัปโหลดรูปภาพหรือไม่
     if (fileList.length === 0) {
       messageApi.open({
         type: "error",
@@ -303,7 +301,7 @@ const Employee: React.FC = () => {
                 cover={
                   <div
                     className="card-image"
-                    style={{ backgroundImage: `url(http://localhost:8080${employee.Avatar})` }}
+                    style={{ backgroundImage: `url(${employee.Avatar})` }}
                     onClick={() => showModal(employee)}
                   />
                 }
@@ -318,15 +316,6 @@ const Employee: React.FC = () => {
           ))}
         </Row>
 
-        {!showAll && filteredEmployees.length > 8 && (
-          <div className="show-all-container" onClick={() => setShowAll(true)}>
-            <img 
-              src="../../../src/assets/down-arrows.png" 
-              alt="drop" 
-              className="logout-icon-drop"
-            />
-          </div>
-        )}
         {showScrollToTop && (
           <Button
             type="primary"
