@@ -112,7 +112,7 @@ const SharedLayout: React.FC = () => {
         />
         <div className="avatar-section">
           <Avatar
-            src={avatar ? `http://localhost:8080${avatar}` : undefined}
+            src={avatar ? `${avatar}` : undefined}
             size="large"
             icon={!avatar && <UserOutlined />}
             className="avatar-s"

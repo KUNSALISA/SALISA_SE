@@ -63,21 +63,20 @@ const Customer: React.FC = () => {
     imgWindow?.document.write(image.outerHTML);
   };
 
+  const onFinishFailed = (errorInfo: any) => {
+    console.error("Form submission failed: ", errorInfo);
+    message.error("กรุณากรอกข้อมูลให้ครบถ้วน!");
+  };
+
   const onFinish = async (values: CustomerInterface) => {
     if (fileList.length === 0) {
-      messageApi.open({
-        type: "error",
-        content: "กรุณาอัปโหลดรูปประจำตัว!",
-      });
+      message.error("กรุณาอัปโหลดรูปประจำตัว!");
       return;
     }
-    
+  
     const avatarUrl = fileList[0].thumbUrl || fileList[0].url;
     if (!avatarUrl) {
-      messageApi.open({
-        type: "error",
-        content: "ไม่สามารถอ่านไฟล์รูปได้!",
-      });
+      message.error("ไม่สามารถอ่านไฟล์รูปได้!");
       return;
     }
   
@@ -85,21 +84,15 @@ const Customer: React.FC = () => {
   
     const res = await CreateCustomer(values);
     if (res) {
-      messageApi.open({
-        type: "success",
-        content: "บันทึกข้อมูลสำเร็จ",
-      });
+      message.success("บันทึกข้อมูลสำเร็จ");
       await getcustomers();
       form.resetFields();
       setFileList([]);
-      closeAddModal(); 
+      closeAddModal();
     } else {
-      messageApi.open({
-        type: "error",
-        content: "เกิดข้อผิดพลาด!",
-      });
+      message.error("เกิดข้อผิดพลาด!");
     }
-  };
+  };  
   
   const filteredCustomers = customers.filter(
     (customer) =>
@@ -274,7 +267,7 @@ const Customer: React.FC = () => {
           onCancel={closeAddModal}
           footer={null} 
         >
-          <Form form={form} layout="vertical" onFinish={onFinish}>
+          <Form form={form} layout="vertical" onFinish={onFinish} onFinishFailed={onFinishFailed}>
               <Form.Item
                 label="First Name"
                 name="FirstName"

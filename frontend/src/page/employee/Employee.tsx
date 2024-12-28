@@ -117,21 +117,22 @@ const Employee: React.FC = () => {
     form.resetFields();
   };
 
+  const onFinishFailed = (errorInfo: any) => {
+    console.error("Form submission failed: ", errorInfo);
+    message.error("กรุณากรอกข้อมูลให้ครบถ้วน!");
+  };
+
   const onFinish = async (values: EmployeeInterface) => {
+    // ตรวจสอบว่าอัปโหลดไฟล์รูปประจำตัวหรือยัง
     if (fileList.length === 0) {
-      messageApi.open({
-        type: "error",
-        content: "กรุณาอัปโหลดรูปประจำตัว!",
-      });
+      message.error("กรุณาอัปโหลดรูปประจำตัว!");
       return;
     }
   
+    // อ่าน URL ของรูปภาพจากไฟล์ที่อัปโหลด
     const avatarUrl = fileList[0].thumbUrl || fileList[0].url;
     if (!avatarUrl) {
-      messageApi.open({
-        type: "error",
-        content: "ไม่สามารถอ่านไฟล์รูปได้!",
-      });
+      message.error("ไม่สามารถอ่านไฟล์รูปได้!");
       return;
     }
   
@@ -145,31 +146,22 @@ const Employee: React.FC = () => {
     if (selectedPosition) {
       values.AccessLevel = selectedPosition.Position; // กำหนดค่า AccessLevel
     } else {
-      messageApi.open({
-        type: "error",
-        content: "กรุณาเลือกตำแหน่งงานที่ถูกต้อง!",
-      });
+      message.error("กรุณาเลือกตำแหน่งงานที่ถูกต้อง!");
       return;
     }
   
     // เรียก API เพื่อสร้างข้อมูลพนักงาน
     const res = await CreateEmployee(values);
     if (res) {
-      messageApi.open({
-        type: "success",
-        content: "บันทึกข้อมูลสำเร็จ",
-      });
+      message.success("บันทึกข้อมูลสำเร็จ");
       await getEmployees(); // อัปเดตข้อมูลพนักงานใหม่
       form.resetFields(); // รีเซ็ตฟอร์ม
       setFileList([]); // รีเซ็ตไฟล์ที่อัปโหลด
       closeAddModal(); // ปิด Modal
     } else {
-      messageApi.open({
-        type: "error",
-        content: "เกิดข้อผิดพลาด!",
-      });
+      message.error("เกิดข้อผิดพลาด!");
     }
-  };
+  };  
 
   const handleEditSubmit = async (values: EmployeeInterface) => {
     // ตรวจสอบว่าเลือก Position หรือไม่
@@ -335,7 +327,7 @@ const Employee: React.FC = () => {
           onCancel={closeAddModal}
           footer={null} 
         >
-          <Form form={form} layout="vertical" onFinish={onFinish}>
+          <Form form={form} layout="vertical" onFinish={onFinish} onFinishFailed={onFinishFailed}>
             <Form.Item
               label="First Name"
               name="E_FirstName"
