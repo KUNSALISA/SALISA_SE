@@ -101,8 +101,6 @@ const Customer: React.FC = () => {
     }
   };
   
-  
-
   const filteredCustomers = customers.filter(
     (customer) =>
       customer.FirstName?.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -280,14 +278,25 @@ const Customer: React.FC = () => {
               <Form.Item
                 label="First Name"
                 name="FirstName"
-                rules={[{ required: true, message: "Please enter first name" }]}
+                rules={[
+                  { required: true, message: "Please enter first name" },
+                  {
+                    pattern: /^[A-Za-z\s]+$/,
+                    message: "First name can only contain letters",
+                  },
+                ]}
               >
                 <Input placeholder="Enter first name" />
               </Form.Item>
               <Form.Item
                 label="Last Name"
                 name="LastName"
-                rules={[{ required: true, message: "Please enter last name" }]}
+                rules={[
+                  { required: true, message: "Please enter last name" },
+                  {
+                    pattern: /^[A-Za-z\s]+$/,
+                    message: "Last name can only contain letters",
+                  },]}
               >
                 <Input placeholder="Enter last name" />
               </Form.Item>
@@ -307,7 +316,13 @@ const Customer: React.FC = () => {
               <Form.Item
                 label="Phone Number"
                 name="Number"
-                rules={[{ required: true, message: "Please enter Phone Number" }]}
+                rules={[
+                  { required: true, message: "Please enter Phone Number" },
+                  {
+                    pattern: /^[0]\d{9}$/,
+                    message: "Phone number must be exactly 10 digits and start with '0'!",
+                  },
+                ]}
               >
                 <Input placeholder="Enter last name" />
               </Form.Item>
@@ -323,7 +338,10 @@ const Customer: React.FC = () => {
               <Form.Item
                 label="Password"
                 name="Password"
-                rules={[{ required: true, message: "Please enter a password!" }]}
+                rules={[
+                  { required: true, message: "Please enter a password!" },
+                  { min: 8, message: "Password must be at least 8 characters long" },
+                ]}
               >
                 <Input.Password placeholder="Enter password" />
               </Form.Item>

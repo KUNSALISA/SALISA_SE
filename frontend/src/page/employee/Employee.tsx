@@ -192,8 +192,7 @@ const Employee: React.FC = () => {
       messageApi.error("กรุณาอัปโหลดรูปภาพ");
       return;
     }
-  
-    // ทำการส่งข้อมูลไปยัง API
+
     const res = await UpdateEmployeeById(String(selectedEmployee?.ID), values);
     if (res && res.status === 200) {
       messageApi.success("ข้อมูลพนักงานได้รับการอัปเดตสำเร็จ");
@@ -340,14 +339,26 @@ const Employee: React.FC = () => {
             <Form.Item
               label="First Name"
               name="E_FirstName"
-              rules={[{ required: true, message: "Please enter first name" }]}
+              rules={[
+                { required: true, message: "Please enter first name" },
+                {
+                  pattern: /^[A-Za-z\s]+$/,
+                  message: "First name can only contain letters",
+                },
+              ]}
             >
               <Input placeholder="Enter first name" />
             </Form.Item>
             <Form.Item
               label="Last Name"
               name="E_LastName"
-              rules={[{ required: true, message: "Please enter last name" }]}
+              rules={[
+                { required: true, message: "Please enter last name" },
+                {
+                  pattern: /^[A-Za-z\s]+$/,
+                  message: "Last name can only contain letters",
+                },
+              ]}
             >
               <Input placeholder="Enter last name" />
             </Form.Item>
@@ -409,7 +420,13 @@ const Employee: React.FC = () => {
             <Form.Item
               label="Phone Number"
               name="Number"
-              rules={[{ required: true, message: "Please enter phone number" }]}
+              rules={[
+                { required: true, message: "Please enter phone number" },
+                {
+                  pattern: /^[0]\d{9}$/,
+                  message: "Phone number must be exactly 10 digits and start with '0'!",
+                },
+              ]}
             >
               <Input placeholder="Enter phone number" />
             </Form.Item>
@@ -425,7 +442,10 @@ const Employee: React.FC = () => {
             <Form.Item
               label="Password"
               name="Password"
-              rules={[{ required: true, message: "Please enter password" }]}
+              rules={[
+                { required: true, message: "Please enter password" },
+                { min: 8, message: "Password must be at least 8 characters long" },
+              ]}
             >
               <Input.Password placeholder="Enter password" />
             </Form.Item>
