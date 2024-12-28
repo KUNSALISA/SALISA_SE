@@ -510,9 +510,13 @@ const Employee: React.FC = () => {
                 <div>
                   {selectedEmployee.Avatar ? (
                     <img
-                      src={`http://localhost:8080${selectedEmployee.Avatar}`}
+                      src={selectedEmployee.Avatar}
                       alt="Employee Avatar"
                       style={{ width: "auto", height: "300px", borderRadius: "10px", objectFit: "cover" }}
+                      onError={(e) => {
+                        (e.target as HTMLImageElement).onerror = null;
+                        (e.target as HTMLImageElement).src = "https://via.placeholder.com/150"; 
+                      }}  
                     />
                   ) : (
                     <div

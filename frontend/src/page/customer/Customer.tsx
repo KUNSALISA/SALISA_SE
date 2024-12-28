@@ -409,11 +409,7 @@ const Customer: React.FC = () => {
                   <img
                     src={selectedCustomers.Avatar} 
                     alt="Customer Avatar"
-                    style={{
-                      width: "auto",
-                      height: "300px",
-                      borderRadius: "10px",
-                      objectFit: "cover",
+                    style={{width: "auto", height: "300px", borderRadius: "10px", objectFit: "cover",
                     }}
                     onError={(e) => {
                       (e.target as HTMLImageElement).onerror = null;
