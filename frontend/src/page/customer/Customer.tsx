@@ -352,6 +352,7 @@ const Customer: React.FC = () => {
               >
                 <ImgCrop rotationSlider>
                   <Upload
+                    id={"Avatar"}
                     fileList={fileList}
                     onChange={({ fileList: newFileList }) => {
                       setFileList(newFileList.slice(-1)); 
@@ -375,10 +376,10 @@ const Customer: React.FC = () => {
                 </ImgCrop>
               </Form.Item>
               <Form.Item>
-                <div style={{ display: "flex", justifyContent: "flex-end" }}> {/* ใช้ Flexbox */}
+                <div style={{ display: "flex", justifyContent: "flex-end" }}> 
                   <Space>
                     <Button onClick={closeAddModal}>CLOSE</Button>
-                    <Button type="primary" htmlType="submit" icon={<PlusOutlined />}>
+                    <Button type="primary" htmlType="submit" icon={<PlusOutlined />} style={{ backgroundColor: '#FF7236', borderColor: '#FF7236' }}>
                       SUBMIT
                     </Button>
                   </Space>
@@ -404,7 +405,7 @@ const Customer: React.FC = () => {
             type="primary"
             style={{ backgroundColor: "#FF7236", borderColor: "#FF7236" }}
             onClick={() => {
-              form.setFieldsValue(selectedCustomers); // Pre-fill form with customer data
+              form.setFieldsValue(selectedCustomers); 
               showEditModal();
             }}
             >
@@ -550,9 +551,9 @@ const Customer: React.FC = () => {
               </ImgCrop>
             </Form.Item>
             <Form.Item>
-              <Space style={{ float: "right" }}> {/* Align buttons to the right */}
+              <Space style={{ float: "right" }}> 
                 <Button onClick={closeEditModal}>CANCEL</Button>
-                <Button danger onClick={handleDeleteCustomer}>DELETE</Button> {/* Confirmation prompt will be shown */}
+                <Button danger onClick={handleDeleteCustomer}>DELETE</Button> 
                 <Button type="primary" htmlType="submit">
                   SUBMIT
                 </Button>

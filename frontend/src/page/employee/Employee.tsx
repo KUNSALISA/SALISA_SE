@@ -359,7 +359,7 @@ const Employee: React.FC = () => {
               name="GenderID"
               rules={[{ required: true, message: "Please select a gender!" }]}
             >
-              <Select allowClear placeholder="Select gender">
+              <Select allowClear placeholder="Select gender" id={"GenderID"}>
                 {genders.map((item) => (
                   <Option value={item.ID} key={item.Gender}>
                     {item.Gender}
@@ -375,6 +375,7 @@ const Employee: React.FC = () => {
               <Select
                 allowClear
                 placeholder="Select position"
+                id={"PositionID"}
                 onChange={(value) => {
                   const selectedPosition = positions.find((item) => item.ID === value);
                   if (selectedPosition) {
@@ -394,7 +395,7 @@ const Employee: React.FC = () => {
               name="WarehouseID"
               rules={[{ required: true, message: "Please select a warehouse" }]}
             >
-              <Select allowClear placeholder="Select warehouse">
+              <Select allowClear placeholder="Select warehouse" id={"WarehouseID"}> 
                 {warehouses.map((item) => (
                   <Option key={item.ID} value={item.ID}>
                     {item.Warehouse_name}
@@ -455,6 +456,7 @@ const Employee: React.FC = () => {
               >
                 <ImgCrop rotationSlider>
                   <Upload
+                    id={"Avatar"}
                     fileList={fileList}
                     onChange={({ fileList: newFileList }) => {
                       setFileList(newFileList.slice(-1)); 
@@ -481,7 +483,7 @@ const Employee: React.FC = () => {
               <div style={{ display: "flex", justifyContent: "flex-end" }}>
                 <Space>
                   <Button onClick={closeAddModal}>CLOSE</Button>
-                  <Button type="primary" htmlType="submit" icon={<PlusOutlined />}>
+                  <Button type="primary" htmlType="submit" icon={<PlusOutlined />} style={{ backgroundColor: '#FF7236', borderColor: '#FF7236' }}>
                     SUBMIT
                   </Button>
                 </Space>

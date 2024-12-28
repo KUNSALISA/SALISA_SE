@@ -121,8 +121,15 @@
     right: 25px;
     z-index: 1000;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+    background-color: #FF7236 !important;
+    border: none;
+    color: #fff; 
   }
-
+  
+  .scroll-to-top-btn-em:hover {
+    background-color: #E65A25; 
+  }
+ 
 .ant-modal {
       border-radius: 10px;
     }
