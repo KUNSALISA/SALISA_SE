@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Layout, Card, Input, Button, Row, Col, Modal, Form, message, Select, Upload, Space, DatePicker } from "antd";
-import {SearchOutlined, UpOutlined, PlusOutlined } from "@ant-design/icons";
-import {EmployeeInterface, GendersInterface, PositionsInterface, WarehousesInterface} from "../../interfaces/InterfaceFull";
-import {GetAllEmployees, CreateEmployee, GetGender, GetPositions, GetWarehouses, DeleteEmployeeById, UpdateEmployeeById} from "../../services/https/index";
+import { SearchOutlined, UpOutlined, PlusOutlined } from "@ant-design/icons";
+import { EmployeeInterface, GendersInterface, PositionsInterface, WarehousesInterface } from "../../interfaces/InterfaceFull";
+import { GetAllEmployees, CreateEmployee, GetGender, GetPositions, GetWarehouses, DeleteEmployeeById, UpdateEmployeeById } from "../../services/https/index";
 import type { GetProp, UploadFile, UploadProps } from "antd";
 import ImgCrop from "antd-img-crop";
 import dayjs from "dayjs";
@@ -40,21 +40,21 @@ const Employee: React.FC = () => {
     let res = await GetGender();
     if (res && Array.isArray(res.data)) {
       setGenders(res.data);
-    } 
+    }
   };
 
   const getPosition = async () => {
     let res = await GetPositions();
     if (res && Array.isArray(res.data)) {
       setPositions(res.data);
-    } 
+    }
   };
 
   const getWarehouses = async () => {
     let res = await GetWarehouses();
     if (res && Array.isArray(res.data)) {
       setWarehouses(res.data);
-    } 
+    }
   };
 
   useEffect(() => {
@@ -63,9 +63,9 @@ const Employee: React.FC = () => {
     getPosition();
     getWarehouses();
   }, []);
-  
+
   const onChange: UploadProps["onChange"] = ({ fileList: newFileList }) => {
-      setFileList(newFileList);
+    setFileList(newFileList);
   };
 
   const filteredEmployees = employees.filter(
@@ -128,17 +128,17 @@ const Employee: React.FC = () => {
       message.error("กรุณาอัปโหลดรูปประจำตัว!");
       return;
     }
-  
+
     // อ่าน URL ของรูปภาพจากไฟล์ที่อัปโหลด
     const avatarUrl = fileList[0].thumbUrl || fileList[0].url;
     if (!avatarUrl) {
       message.error("ไม่สามารถอ่านไฟล์รูปได้!");
       return;
     }
-  
+
     // กำหนดค่า Avatar จากไฟล์ที่อัปโหลด
     values.Avatar = avatarUrl;
-  
+
     // ค้นหาตำแหน่งงานที่เลือก และตั้งค่า AccessLevel อัตโนมัติ
     const selectedPosition = positions.find(
       (position) => position.ID === values.PositionID
@@ -149,7 +149,7 @@ const Employee: React.FC = () => {
       message.error("กรุณาเลือกตำแหน่งงานที่ถูกต้อง!");
       return;
     }
-  
+
     // เรียก API เพื่อสร้างข้อมูลพนักงาน
     const res = await CreateEmployee(values);
     if (res) {
@@ -161,51 +161,41 @@ const Employee: React.FC = () => {
     } else {
       message.error("เกิดข้อผิดพลาด!");
     }
-  };  
+  };
 
   const handleEditSubmit = async (values: EmployeeInterface) => {
-    // ตรวจสอบว่าเลือก Position หรือไม่
-    if (!values.PositionID) {
-      messageApi.error("กรุณาเลือกตำแหน่งงาน");
-      return;
+    let avatarUrl = selectedEmployee?.Avatar;
+    
+    if (fileList.length > 0) {
+      const file = fileList[0];
+      avatarUrl = file.thumbUrl || file.url ;
+      
+      if (!avatarUrl) {
+        message.error("Unable to read the uploaded file. Please try again.");
+        return;
+      }
     }
   
-    // ตั้งค่า AccessLevel อัตโนมัติจากตำแหน่ง
-    const selectedPosition = positions.find((item) => item.ID === values.PositionID);
-    if (selectedPosition) {
-      values.AccessLevel = selectedPosition.Position;
-    }
+    values.Avatar = avatarUrl;
   
-    // ตรวจสอบว่า Avatar ถูกอัปโหลดหรือยัง
-    const avatarUrl = fileList[0]?.thumbUrl || fileList[0]?.url;
-    if (avatarUrl) {
-      values.Avatar = avatarUrl;
-    } else {
-      messageApi.error("กรุณาอัปโหลดรูปภาพ");
-      return;
-    }
-
     const res = await UpdateEmployeeById(String(selectedEmployee?.ID), values);
     if (res && res.status === 200) {
-      messageApi.success("ข้อมูลพนักงานได้รับการอัปเดตสำเร็จ");
-  
-      // อัปเดตข้อมูลใน state หรือ UI
+      messageApi.success("Customer updated successfully");
       setSelectedEmployee((prev) => ({
         ...prev,
         ...values,
         Gender: genders.find((gender) => gender.ID === values.GenderID),
-        Position: positions.find((position) => position.ID === values.PositionID),
-        Warehouse: warehouses.find((warehouse) => warehouse.ID === values.WarehouseID),
+       
       }));
   
       // เรียกฟังก์ชันเพื่อโหลดข้อมูลใหม่
       await getEmployees();
       closeEditModal();
     } else {
-      const errorMessage = res?.data?.message || "เกิดข้อผิดพลาดในการอัปเดตข้อมูล";
+      const errorMessage = res?.data?.message || "Failed to update customer";
       messageApi.error(errorMessage);
     }
-  };    
+  };
 
   const handleDeleteEmployee = () => {
     Modal.confirm({
@@ -233,19 +223,19 @@ const Employee: React.FC = () => {
   };
 
   const onPreview = async (file: UploadFile) => {
-      let src = file.url as string;
-      if (!src) {
-        src = await new Promise((resolve) => {
-          const reader = new FileReader();
-          reader.readAsDataURL(file.originFileObj as FileType);
-          reader.onload = () => resolve(reader.result as string);
-        });
-      }
-      const image = new Image();
-      image.src = src;
-      const imgWindow = window.open(src);
-      imgWindow?.document.write(image.outerHTML);
-    };
+    let src = file.url as string;
+    if (!src) {
+      src = await new Promise((resolve) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file.originFileObj as FileType);
+        reader.onload = () => resolve(reader.result as string);
+      });
+    }
+    const image = new Image();
+    image.src = src;
+    const imgWindow = window.open(src);
+    imgWindow?.document.write(image.outerHTML);
+  };
 
   return (
     <Layout className="team-layout">
@@ -325,7 +315,7 @@ const Employee: React.FC = () => {
           }
           visible={isAddModalVisible}
           onCancel={closeAddModal}
-          footer={null} 
+          footer={null}
         >
           <Form form={form} layout="vertical" onFinish={onFinish} onFinishFailed={onFinishFailed}>
             <Form.Item
@@ -395,7 +385,7 @@ const Employee: React.FC = () => {
               name="WarehouseID"
               rules={[{ required: true, message: "Please select a warehouse" }]}
             >
-              <Select allowClear placeholder="Select warehouse" id={"WarehouseID"}> 
+              <Select allowClear placeholder="Select warehouse" id={"WarehouseID"}>
                 {warehouses.map((item) => (
                   <Option key={item.ID} value={item.ID}>
                     {item.Warehouse_name}
@@ -450,35 +440,35 @@ const Employee: React.FC = () => {
               <Input.TextArea placeholder="Enter address" />
             </Form.Item>
             <Form.Item
-                label="Avatar"
-                name="Avatar"
-                valuePropName="fileList"
-              >
-                <ImgCrop rotationSlider>
-                  <Upload
-                    id={"Avatar"}
-                    fileList={fileList}
-                    onChange={({ fileList: newFileList }) => {
-                      setFileList(newFileList.slice(-1)); 
-                    }}
-                    onPreview={onPreview}
-                    beforeUpload={(file) => {
-                      setFileList([file]); 
-                      return false; 
-                    }}
-                    maxCount={1}
-                    multiple={false}
-                    listType="picture-card"
-                  >
-                    {fileList.length < 1 && (
-                      <div>
-                        <PlusOutlined />
-                        <div style={{ marginTop: 8 }}>Upload</div>
-                      </div>
-                    )}
-                  </Upload>
-                </ImgCrop>
-              </Form.Item>
+              label="Avatar"
+              name="Avatar"
+              valuePropName="fileList"
+            >
+              <ImgCrop rotationSlider>
+                <Upload
+                  id={"Avatar"}
+                  fileList={fileList}
+                  onChange={({ fileList: newFileList }) => {
+                    setFileList(newFileList.slice(-1));
+                  }}
+                  onPreview={onPreview}
+                  beforeUpload={(file) => {
+                    setFileList([file]);
+                    return false;
+                  }}
+                  maxCount={1}
+                  multiple={false}
+                  listType="picture-card"
+                >
+                  {fileList.length < 1 && (
+                    <div>
+                      <PlusOutlined />
+                      <div style={{ marginTop: 8 }}>Upload</div>
+                    </div>
+                  )}
+                </Upload>
+              </ImgCrop>
+            </Form.Item>
             <Form.Item>
               <div style={{ display: "flex", justifyContent: "flex-end" }}>
                 <Space>
@@ -494,7 +484,7 @@ const Employee: React.FC = () => {
 
         <Modal
           title={
-            <div style={{fontSize: "20px", fontWeight: "bold" }}>
+            <div style={{ fontSize: "20px", fontWeight: "bold" }}>
               Profile
             </div>
           }
@@ -509,12 +499,18 @@ const Employee: React.FC = () => {
               type="primary"
               style={{ backgroundColor: "#FF7236", borderColor: "#FF7236" }}
               onClick={() => {
-                form.setFieldsValue(selectedEmployee); 
-                showEditModal();
+                if (selectedEmployee) {
+                  form.resetFields(); // รีเซ็ตข้อมูลฟอร์ม
+                  form.setFieldsValue(selectedEmployee); // เติมข้อมูลพนักงานที่เลือกลงในฟอร์ม
+                  showEditModal();
+                } else {
+                  messageApi.error("กรุณาเลือกพนักงานก่อนแก้ไข");
+                }
               }}
             >
               EDIT
             </Button>
+
           ]}
           width={800}
         >
@@ -529,8 +525,8 @@ const Employee: React.FC = () => {
                       style={{ width: "auto", height: "300px", borderRadius: "10px", objectFit: "cover" }}
                       onError={(e) => {
                         (e.target as HTMLImageElement).onerror = null;
-                        (e.target as HTMLImageElement).src = "https://via.placeholder.com/150"; 
-                      }}  
+                        (e.target as HTMLImageElement).src = "https://via.placeholder.com/150";
+                      }}
                     />
                   ) : (
                     <div
@@ -656,7 +652,7 @@ const Employee: React.FC = () => {
             <Form.Item
               label="Phone Number"
               name="Number"
-              rules={[{ required: true, message: "Please enter phone number" }]}
+              rules={[{ required: true, pattern: /^[0]\d{9}$/, message: "Please enter phone number" }]}
             >
               <Input placeholder="Enter phone number" />
             </Form.Item>

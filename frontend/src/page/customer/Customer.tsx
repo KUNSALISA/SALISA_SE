@@ -144,23 +144,39 @@ const Customer: React.FC = () => {
   };
 
   const handleEditSubmit = async (values: CustomerInterface) => {
-    const res = await UpdateCustomersById(String(selectedCustomers?.ID), values); 
+    let avatarUrl = selectedCustomers?.Avatar;
+    
+    if (fileList.length > 0) {
+      const file = fileList[0];
+      avatarUrl = file.thumbUrl || file.url ;
+      
+      if (!avatarUrl) {
+        message.error("Unable to read the uploaded file. Please try again.");
+        return;
+      }
+    }
+  
+    values.Avatar = avatarUrl;
+  
+    const res = await UpdateCustomersById(String(selectedCustomers?.ID), values);
     if (res && res.status === 200) {
       messageApi.success("Customer updated successfully");
-      
       setSelectedCustomers((prev) => ({
         ...prev,
-        ...values, 
-        Gender: genders.find((gender) => gender.ID === values.GenderID), 
+        ...values,
+        Gender: genders.find((gender) => gender.ID === values.GenderID),
+       
       }));
-      
-      await getcustomers(); 
-      closeEditModal(); 
+  
+      // เรียกฟังก์ชันเพื่อโหลดข้อมูลใหม่
+      await getcustomers();
+      closeEditModal();
     } else {
       const errorMessage = res?.data?.message || "Failed to update customer";
-      messageApi.error(errorMessage); 
+      messageApi.error(errorMessage);
     }
-  }; 
+  };
+  
 
   const handleDeleteCustomer = () => {
     Modal.confirm({
