@@ -2,8 +2,8 @@ package controller
 
 import (
 	"net/http"
-	"strconv"
-
+	// "strconv"
+	"gorm.io/gorm"
 	"github.com/KUNSALISA/SALISA_SE/config"
 	"github.com/KUNSALISA/SALISA_SE/entity"
 	"github.com/gin-gonic/gin"
@@ -81,46 +81,87 @@ func GetCustomers(c *gin.Context) {
 }
 
 func UpdateCustomers(c *gin.Context) {
-	ID := c.Param("id")
-	customerID, err := strconv.Atoi(ID)
-	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid ID format"})
-		return
-	}
 
+	id := c.Param("id")
 	db := config.DB()
-	var existingCustomer entity.Customer
-
-	// Find the existing customer
-	if err := db.First(&existingCustomer, customerID).Error; err != nil {
-		c.JSON(http.StatusNotFound, gin.H{"error": "Customer not found"})
+	// Find existing customer
+	var customer entity.Customer
+	if err := db.First(&customer, id).Error; err != nil {
+		if err == gorm.ErrRecordNotFound {
+			c.JSON(http.StatusNotFound, gin.H{"error": "Customer not found"})
+			return
+		}
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Database error"})
 		return
 	}
 
+	// Bind JSON input to Customer struct
 	var input entity.Customer
-	// Bind JSON payload to struct
 	if err := c.ShouldBindJSON(&input); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid input data"})
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
 	// Update the existing customer fields
-	existingCustomer.FirstName = input.FirstName
-	existingCustomer.LastName = input.LastName
-	existingCustomer.Email = input.Email
-	existingCustomer.Number = input.Number
-	existingCustomer.GenderID = input.GenderID
-	existingCustomer.Address = input.Address
-	existingCustomer.Avatar = input.Avatar // Ensure Avatar URL is stored
+	customer.FirstName = input.FirstName
+	customer.LastName = input.LastName
+	customer.Email = input.Email
+	customer.Number = input.Number
+	customer.GenderID = input.GenderID
+	customer.Address = input.Address
+	customer.Avatar = input.Avatar
 
-	// Save updated customer in the database
-	if err := db.Save(&existingCustomer).Error; err != nil {
+	// Save changes to database
+	if err := db.Save(&customer).Error; err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to update customer"})
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{"message": "Customer updated successfully", "data": existingCustomer})
+	c.JSON(http.StatusOK, gin.H{"message": "customer updated successfully", "customer": customer})
 }
+
+
+// func UpdateCustomers(c *gin.Context) {
+// 	ID := c.Param("id")
+// 	customerID, err := strconv.Atoi(ID)
+// 	if err != nil {
+// 		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid ID format"})
+// 		return
+// 	}
+
+// 	db := config.DB()
+// 	var existingCustomer entity.Customer
+
+// 	// Find the existing customer
+// 	if err := db.First(&existingCustomer, customerID).Error; err != nil {
+// 		c.JSON(http.StatusNotFound, gin.H{"error": "Customer not found"})
+// 		return
+// 	}
+
+// 	var input entity.Customer
+// 	// Bind JSON payload to struct
+// 	if err := c.ShouldBindJSON(&input); err != nil {
+// 		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid input data"})
+// 		return
+// 	}
+
+	// // Update the existing customer fields
+	// existingCustomer.FirstName = input.FirstName
+	// existingCustomer.LastName = input.LastName
+	// existingCustomer.Email = input.Email
+// 	existingCustomer.Number = input.Number
+// 	existingCustomer.GenderID = input.GenderID
+// 	existingCustomer.Address = input.Address
+// 	existingCustomer.Avatar = input.Avatar // Ensure Avatar URL is stored
+
+// 	// Save updated customer in the database
+// 	if err := db.Save(&existingCustomer).Error; err != nil {
+// 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to update customer"})
+// 		return
+// 	}
+
+// 	c.JSON(http.StatusOK, gin.H{"message": "Customer updated successfully", "data": existingCustomer})
+// }
 
 func DeleteCustomers(c *gin.Context) {
     ID := c.Param("id")

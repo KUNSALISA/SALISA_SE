@@ -115,7 +115,7 @@ const SharedLayout: React.FC = () => {
             src={avatar ? `${avatar}` : undefined}
             size="large"
             icon={!avatar && <UserOutlined />}
-            className="avatar-s"
+            // className="avatar-s"
           />
           <span className="user-name">
             {firstName} {lastName}
