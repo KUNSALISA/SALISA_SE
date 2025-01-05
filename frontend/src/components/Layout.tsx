@@ -32,7 +32,7 @@ const SharedLayout: React.FC = () => {
       key: "1",
       label: <Link to="/manager">Home</Link>,
       icon: <img src="../../src/assets/building.png" alt="Home" style={{ width: 24 }} />,
-      visible: accessLevel === "Manager" || accessLevel === "Employee",
+      visible: accessLevel === "Manager" || accessLevel === "A" || accessLevel === "B" || accessLevel === "C" || accessLevel === "D",
     },
     {
       key: "2",
@@ -62,37 +62,37 @@ const SharedLayout: React.FC = () => {
       key: "6",
       label: <Link to="/warehouse">Products</Link>,
       icon: <img src="../../src/assets/box.png" alt="Warehouse" style={{ width: 24 }} />,
-      visible: accessLevel === "A",
+      visible: accessLevel === "B",
     },
     {
       key: "7",
       label: <Link to="/warehouse">Transaction</Link>,
       icon: <img src="../../src/assets/transaction.png" alt="Warehouse" style={{ width: 24 }} />,
-      visible: accessLevel === "A",
+      visible: accessLevel === "B",
     },
     {
       key: "8",
       label: <Link to="/warehouse">Supplier</Link>,
       icon: <img src="../../src/assets/supplier.png" alt="Warehouse" style={{ width: 24 }} />,
-      visible: accessLevel === "A",
+      visible: accessLevel === "C",
     },
     {
       key: "9",
       label: <Link to="/warehouse">Location</Link>,
       icon: <img src="../../src/assets/zone-picking.png" alt="Warehouse" style={{ width: 24 }} />,
-      visible: accessLevel === "A",
+      visible: accessLevel === "C",
     },
     {
       key: "10",
       label: <Link to="/warehouse">Order</Link>,
       icon: <img src="../../src/assets/completed-task.png" alt="Warehouse" style={{ width: 24 }} />,
-      visible: accessLevel === "A",
+      visible: accessLevel === "D",
     },
     {
       key: "11",
       label: <Link to="/warehouse">Shipment</Link>,
       icon: <img src="../../src/assets/distribution.png" alt="Warehouse" style={{ width: 24 }} />,
-      visible: accessLevel === "A",
+      visible: accessLevel === "D",
     },
 
   ];
