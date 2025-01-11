@@ -3,10 +3,10 @@ package controller
 import (
 	"net/http"
 	// "strconv"
-	"gorm.io/gorm"
 	"github.com/KUNSALISA/SALISA_SE/config"
 	"github.com/KUNSALISA/SALISA_SE/entity"
 	"github.com/gin-gonic/gin"
+	"gorm.io/gorm"
 )
 
 func CreateCustomer(c *gin.Context) {
@@ -120,67 +120,23 @@ func UpdateCustomers(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"message": "customer updated successfully", "customer": customer})
 }
 
-
-// func UpdateCustomers(c *gin.Context) {
-// 	ID := c.Param("id")
-// 	customerID, err := strconv.Atoi(ID)
-// 	if err != nil {
-// 		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid ID format"})
-// 		return
-// 	}
-
-// 	db := config.DB()
-// 	var existingCustomer entity.Customer
-
-// 	// Find the existing customer
-// 	if err := db.First(&existingCustomer, customerID).Error; err != nil {
-// 		c.JSON(http.StatusNotFound, gin.H{"error": "Customer not found"})
-// 		return
-// 	}
-
-// 	var input entity.Customer
-// 	// Bind JSON payload to struct
-// 	if err := c.ShouldBindJSON(&input); err != nil {
-// 		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid input data"})
-// 		return
-// 	}
-
-	// // Update the existing customer fields
-	// existingCustomer.FirstName = input.FirstName
-	// existingCustomer.LastName = input.LastName
-	// existingCustomer.Email = input.Email
-// 	existingCustomer.Number = input.Number
-// 	existingCustomer.GenderID = input.GenderID
-// 	existingCustomer.Address = input.Address
-// 	existingCustomer.Avatar = input.Avatar // Ensure Avatar URL is stored
-
-// 	// Save updated customer in the database
-// 	if err := db.Save(&existingCustomer).Error; err != nil {
-// 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to update customer"})
-// 		return
-// 	}
-
-// 	c.JSON(http.StatusOK, gin.H{"message": "Customer updated successfully", "data": existingCustomer})
-// }
-
 func DeleteCustomers(c *gin.Context) {
-    ID := c.Param("id")
+	ID := c.Param("id")
 
-    db := config.DB()
-    var customer entity.Customer
+	db := config.DB()
+	var customer entity.Customer
 
-    // ตรวจสอบว่าลูกค้ามีอยู่ในระบบหรือไม่
-    result := db.Preload("Gender").First(&customer, ID)
-    if result.Error != nil {
-        c.JSON(http.StatusNotFound, gin.H{"error": "Customer not found"})
-        return
-    }
-    // ลบข้อมูลลูกค้า
-    if tx := db.Delete(&customer); tx.RowsAffected == 0 {
-        c.JSON(http.StatusBadRequest, gin.H{"error": "Failed to delete customer"})
-        return
-    }
+	// ตรวจสอบว่าลูกค้ามีอยู่ในระบบหรือไม่
+	result := db.Preload("Gender").First(&customer, ID)
+	if result.Error != nil {
+		c.JSON(http.StatusNotFound, gin.H{"error": "Customer not found"})
+		return
+	}
+	// ลบข้อมูลลูกค้า
+	if tx := db.Delete(&customer); tx.RowsAffected == 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Failed to delete customer"})
+		return
+	}
 
-    c.JSON(http.StatusOK, gin.H{"message": "Deleted successfully"})
+	c.JSON(http.StatusOK, gin.H{"message": "Deleted successfully"})
 }
-

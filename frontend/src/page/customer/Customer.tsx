@@ -540,7 +540,7 @@ const Customer: React.FC = () => {
             >
               <Input.TextArea placeholder="Enter address" />
             </Form.Item>
-{/* ยังแก้ไขรูปไม่ได้ */}
+
             <Form.Item label="Avatar" name="Avatar" valuePropName="fileList">  
               <ImgCrop rotationSlider>
                 <Upload
